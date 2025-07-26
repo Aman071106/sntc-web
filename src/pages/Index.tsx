@@ -1,6 +1,8 @@
 import Navigation from '@/components/Navigation';
 import PortalHero from '@/components/PortalHero';
 import ClubsOrbit from '@/components/ClubsOrbit';
+import ProjectsShowcase from '@/components/ProjectsShowcase';
+import { Terminal } from '@/components/Terminal';
 
 const Index = () => {
   return (
@@ -8,6 +10,7 @@ const Index = () => {
       <Navigation />
       <PortalHero />
       <ClubsOrbit />
+      <ProjectsShowcase />
       
       {/* Additional Features Section */}
       <section className="py-20 px-4">
@@ -78,6 +81,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+      
+      {/* Terminal Component */}
+      <Terminal />
     </div>
   );
 };

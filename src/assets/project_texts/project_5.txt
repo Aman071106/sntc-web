@@ -1,0 +1,12 @@
+IN-SPACE CANSAT
+IN-SPACE CANSAT
+Team Lead: Saransh Duharia
+Our team is participating in the IN-SPACe CANSAT India Student Competition, organized by the Astronautical Society of India and ISRO. We will design, develop, and launch a CAN-sized satellite weighing 1 kg to an altitude of 1000 meters. This project involves:
+Design and Component Selection: Preliminary and final designs, component research, and budget planning.
+Subsystem Development: Building and integrating various subsystems.
+Testing: Comprehensive testing and flight readiness review.
+Launch: Execute the launch and conduct post-flight review.
+Team Lead: Saransh Duharia
+Members: Satyam Patil, Bhumesh Gaur, Vishal Kumar, Nakul Gupta, Deepansha Deora, Sania Jain, Meghana Sannapareddy
+Budget:INR 70,000
+stac@iitmandi.ac.in

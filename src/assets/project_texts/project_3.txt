@@ -1,0 +1,9 @@
+Wall Climber Robot
+Wall Climber Robot
+Wall Climber Robot is a robotic system designed to navigate vertical surfaces and ceilings using vacuum technology and suction cups to adhere securely to various surfaces. They are primarily used for inspection and maintenance in industrial facilities and infrastructure, such as tanks, bridges, and high-rise buildings. In construction, they assist with facade inspection, painting, and cleaning. Additionally, they serve surveillance and security purposes for military, law enforcement, and search and rescue operations. These robots enhance safety and efficiency, providing access to areas that are difficult or hazardous for human workers, driven by advancements in robotics and suction technology.
+Team Lead: Vaibhav Kesharwani
+Team Lead: Vaibhav Kesharwani
+Team Co-Lead: Aritra Boral
+Members: Sumit Kumar Sahu,Suraj Raj,Rishabh Shrival,Aditya Sharma,Anmol Kumar,Gyan Ratan,Manjeet Rai,Tarun Singh,Avirup Ghosh,Molik Tyagi
+Budget:INR 35,000
+sntc@iitmandi.ac.in

@@ -93,3 +93,14 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
   }
 }
+
+/* Terminal Styles */
+@layer components {
+  .terminal-line {
+    @apply whitespace-pre-wrap;
+  }
+  
+  .terminal-line:empty {
+    @apply h-4;
+  }
+}

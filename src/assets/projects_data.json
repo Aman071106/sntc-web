@@ -1,0 +1,32 @@
+[
+  {
+    "project_id": 1,
+    "text_file": "project_texts\\project_1.txt",
+    "image_file": "project_images\\Mars_rover.png",
+    "image_url": "https://sntc.iitmandi.co.in/images/Mars_rover.png"
+  },
+  {
+    "project_id": 2,
+    "text_file": "project_texts\\project_2.txt",
+    "image_file": "project_images\\Sae-efficycle.jpeg",
+    "image_url": "https://sntc.iitmandi.co.in/images/Sae-efficycle.jpeg"
+  },
+  {
+    "project_id": 3,
+    "text_file": "project_texts\\project_3.txt",
+    "image_file": "project_images\\Wall_climber.jpg",
+    "image_url": "https://sntc.iitmandi.co.in/images/Wall_climber.jpg"
+  },
+  {
+    "project_id": 4,
+    "text_file": "project_texts\\project_4.txt",
+    "image_file": "project_images\\SAE_bharat.jpg",
+    "image_url": "https://sntc.iitmandi.co.in/images/SAE_bharat.jpg"
+  },
+  {
+    "project_id": 5,
+    "text_file": "project_texts\\project_5.txt",
+    "image_file": "project_images\\Cansat.jpeg",
+    "image_url": "https://sntc.iitmandi.co.in/images/Cansat.jpeg"
+  }
+]

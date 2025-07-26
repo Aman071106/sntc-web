@@ -80,7 +80,15 @@ const PortalHero = () => {
             <button className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-all duration-300 transform hover:scale-105">
               Explore Clubs
             </button>
-            <button className="px-8 py-4 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-primary-foreground transition-all duration-300 transform hover:scale-105">
+            <button 
+              className="px-8 py-4 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-primary-foreground transition-all duration-300 transform hover:scale-105"
+              onClick={() => {
+                const projectsSection = document.querySelector('[data-section="projects"]');
+                if (projectsSection) {
+                  projectsSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+            >
               View Projects
             </button>
           </div>
@@ -89,7 +97,7 @@ const PortalHero = () => {
 
       {/* Terminal cursor */}
       <div className="absolute bottom-8 left-8 text-accent text-sm font-mono">
-        <span>{'>'} system.initialize()...</span>
+        <span>{'>'} sntc.init()...</span>
         <span className="animate-pulse">_</span>
       </div>
     </div>

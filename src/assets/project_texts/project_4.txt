@@ -1,0 +1,13 @@
+Formula Bharat
+Formula Bharat
+Our project aims to design, fabricate, and compete with a Formula E race car at Formula Bharat 2026. Raptor Racing, a team of 27 dedicated IIT Mandi engineering students, guided by Dr. Sarthak Nag and experienced mentors, focuses on innovative design, hands-on learning, and interdisciplinary collaboration across mechanical, electrical, and documentation tasks.
+
+                            The competition allows us to apply theoretical knowledge to real-world challenges, enhancing our skills in CAD, CAM, FEA, CFD, and more. Our vehicle will feature advanced technologies in battery management, regenerative braking, and thermal management, reflecting our commitment to sustainability and efficiency.
+                            
+                            With a detailed budget, we aim to develop and transport our race car successfully. Our participation will boost our institution's reputation, foster industry collaborations, and promote research and development. This project offers invaluable career opportunities and networking for students, preparing them for future challenges in the automotive and engineering industries. We strive to innovate, excel, and set new standards in the Formula Bharat competition.
+Team Lead: Vaibhav Jain
+Team Lead: Vaibhav Jain
+Team Co-Lead: Sarthak Goel
+Members: Bhavya Somani, Pranjal Vats, Khushal Sharma, Shivam Anand, Vani, Tanishi Gupta, Arendra, Vishal Kumar, Aaryan Tyagi, Aditya, Badal Gupta, Harnoor Singh, Harsh Verma, Pujan Purohit, Hrishikesh Kulkarni, Samdeep, Vasudev, Shashwat Saha, Bhavya, Shanti Devi, Rijvana bano, Akash Goel, Veedhee Channey, Sathvika , Aarushi
+Budget:INR 7,97,990
+sae@iitmandi.ac.in
