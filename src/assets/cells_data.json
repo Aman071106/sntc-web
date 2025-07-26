@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "SAIC",
+    "shortName": "SAIC",
+    "fullName": "System Administration and Infosec Cell",
+    "description": "Welcome to S.A.I.C (System Administration and Infosec Cell) at IIT Mandi! Our team of cyber enthusiasts excels in Capture The Flag (CTF) competitions and outsmarting hackers. We host and maintain secure websites with style and finesse. Passionate about penetration testing? We'll teach you how to spot vulnerabilities faster than campus Wi-Fi. Discover fun injections that challenge even the pros. Join us to help script a future where security breaches are history. At S.A.I.C, we're dedicated to making the digital world safer, one hack at a time!",
+    "image": "saic.png",
+    "website": "https://saic.iitmandi.co.in/",
+    "email": "saic@iitmandi.ac.in",
+    "category": "Cybersecurity",
+    "icon": "shield",
+    "color": "accent",
+    "memberCount": 80,
+    "events": 8
+  },
+  {
+    "id": 2,
+    "name": "CG2D",
+    "shortName": "CG2D",
+    "fullName": "Computer Graphics and Game Development",
+    "description": "The CG2D Club is a community for digital creativity and interactive entertainment. We offer workshops, projects, and seminars on 3D modeling, animation, game design, and real-time rendering. Our programs help members create stunning visuals and immersive games. Whether you're an experienced developer or a beginner, CG2D provides the resources and support to excel in computer graphics and game development.",
+    "image": "cg2d.png",
+    "website": "https://cg2d.iitmandi.co.in/",
+    "email": "cg2d@iitmandi.ac.in",
+    "category": "Game Development",
+    "icon": "gamepad-2",
+    "color": "primary",
+    "memberCount": 95,
+    "events": 12
+  },
+  {
+    "id": 3,
+    "name": "E-Cell",
+    "shortName": "E-Cell",
+    "fullName": "Entrepreneurship Cell",
+    "description": "E-Cell is a holographic abbreviation adopted by the entrepreneurship club of IIT Mandi. It's an alumnus initiation and currently is the stewardship of a team of five inter-disciplinary students with the mentorship of Dr. Satvasheel Powar, churning their ideas to reach the various aspects of what lies in this \"business\" of reaching the society. And as the name celebrates our crazy love for subjects related to business and its disciplinaries we always strive to give a glimpse of the potions of business by conducting multifarious of events.",
+    "image": "ecell.png",
+    "website": "https://ecell.iitmandi.co.in/",
+    "email": "ecell@iitmandi.ac.in",
+    "category": "Entrepreneurship",
+    "icon": "trending-up",
+    "color": "secondary",
+    "memberCount": 72,
+    "events": 10
+  },
+  {
+    "id": 4,
+    "name": "Heuristics Cell",
+    "shortName": "Heuristics",
+    "fullName": "Heuristics Cell",
+    "description": "At Heuristics we focus on enhancing the culture of Data Science, Machine Learning at IIT Mandi. It also expands to solve complex optimization problems. It underlies the whole field of Artificial Intelligence and the computer simulation of thinking, as they may be used in situations where there are no known algorithms. We organize regular events, challenges and workshops.",
+    "image": "hueristics.png",
+    "website": "https://heuristics.iitmandi.co.in/",
+    "email": "heuristics@iitmandi.ac.in",
+    "category": "AI/ML",
+    "icon": "brain",
+    "color": "primary",
+    "memberCount": 65,
+    "events": 15
+  }
+] 

@@ -1,0 +1,142 @@
+[
+  {
+    "id": 1,
+    "name": "Utkarsh",
+    "fullName": "Utkarsh - Annual Tech Fest",
+    "description": "Our annual intra-college tech fest, fostering innovation through a vibrant series of events from all SnTC clubs.",
+    "longDescription": "Utkarsh is IIT Mandi's flagship intra-college technical festival that brings together students from all branches to showcase their technical prowess and innovative thinking. The event features a diverse range of competitions, workshops, and exhibitions organized by various SnTC clubs including Robotronics, Programming, STAC, and more. From coding competitions to robotics challenges, from space technology workshops to automotive engineering exhibitions, Utkarsh provides a platform for students to learn, compete, and grow together.",
+    "image": "utkarsh.png",
+    "date": "March 15, 2025",
+    "time": "9:00 AM - 6:00 PM",
+    "venue": "IIT Mandi Campus",
+    "category": "Tech Fest",
+    "organizer": "SnTC",
+    "registrationDeadline": "March 10, 2025",
+    "prizePool": "INR 50,000+",
+    "participants": "500+",
+    "status": "upcoming",
+    "hasDetailedPage": true,
+    "highlights": [
+      "Coding Competitions",
+      "Robotics Challenges", 
+      "Space Technology Workshops",
+      "Automotive Engineering Exhibitions",
+      "Innovation Showcase",
+      "Networking Sessions"
+    ],
+    "schedule": [
+      {
+        "time": "9:00 AM",
+        "event": "Opening Ceremony"
+      },
+      {
+        "time": "10:00 AM",
+        "event": "Coding Competition"
+      },
+      {
+        "time": "2:00 PM",
+        "event": "Robotics Challenge"
+      },
+      {
+        "time": "4:00 PM",
+        "event": "Innovation Showcase"
+      },
+      {
+        "time": "6:00 PM",
+        "event": "Closing Ceremony"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Xpecto",
+    "fullName": "Xpecto - Premier Tech Fest",
+    "description": "IIT Mandi's premier tech fest, celebrating innovation via electrifying competitions and cutting-edge workshops",
+    "longDescription": "Xpecto is IIT Mandi's premier inter-college technical festival that attracts participants from across the country. This prestigious event celebrates innovation, creativity, and technical excellence through a series of electrifying competitions, cutting-edge workshops, and inspiring talks by industry leaders. Xpecto serves as a platform for students to showcase their skills, learn from experts, and network with peers from different institutions.",
+    "image": "Xpecto.png",
+    "date": "October 20-22, 2025",
+    "time": "9:00 AM - 8:00 PM",
+    "venue": "IIT Mandi Campus",
+    "category": "Inter-College Fest",
+    "organizer": "SnTC",
+    "registrationDeadline": "October 15, 2025",
+    "prizePool": "INR 2,00,000+",
+    "participants": "2000+",
+    "status": "upcoming",
+    "hasDetailedPage": true,
+    "highlights": [
+      "National Level Competitions",
+      "Industry Expert Talks",
+      "Innovation Summit",
+      "Startup Showcase",
+      "Cultural Events",
+      "Networking Mixer"
+    ],
+    "schedule": [
+      {
+        "time": "Day 1 - 9:00 AM",
+        "event": "Inauguration Ceremony"
+      },
+      {
+        "time": "Day 1 - 11:00 AM",
+        "event": "Technical Competitions"
+      },
+      {
+        "time": "Day 2 - 10:00 AM",
+        "event": "Workshops & Talks"
+      },
+      {
+        "time": "Day 2 - 3:00 PM",
+        "event": "Innovation Summit"
+      },
+      {
+        "time": "Day 3 - 2:00 PM",
+        "event": "Grand Finale"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Inter-IIT Bootcamp",
+    "fullName": "Inter-IIT Bootcamp 2025",
+    "description": "Empower Your Skills, Expand Your Horizons!! Inter-IIT Bootcamp Awaits!",
+    "longDescription": "The Inter-IIT Bootcamp is an intensive learning program designed to empower students with cutting-edge technical skills and expand their horizons in the world of technology. This collaborative initiative brings together students from various IITs to learn from industry experts, participate in hands-on workshops, and work on real-world projects. The bootcamp covers emerging technologies and provides a unique opportunity for cross-institutional collaboration.",
+    "image": "Bootcamp.jpg",
+    "date": "July 10-15, 2025",
+    "time": "9:00 AM - 5:00 PM",
+    "venue": "IIT Mandi Campus",
+    "category": "Bootcamp",
+    "organizer": "SnTC & IIT Network",
+    "registrationDeadline": "July 5, 2025",
+    "prizePool": "Certificates & Opportunities",
+    "participants": "200",
+    "status": "upcoming",
+    "hasDetailedPage": false,
+    "highlights": [
+      "Intensive Learning Sessions",
+      "Industry Expert Mentorship",
+      "Hands-on Workshops",
+      "Real-world Projects",
+      "Cross-institutional Collaboration",
+      "Career Guidance"
+    ],
+    "schedule": [
+      {
+        "time": "Day 1 - 9:00 AM",
+        "event": "Orientation & Team Formation"
+      },
+      {
+        "time": "Day 2-4 - 9:00 AM",
+        "event": "Technical Workshops"
+      },
+      {
+        "time": "Day 5 - 2:00 PM",
+        "event": "Project Presentations"
+      },
+      {
+        "time": "Day 6 - 4:00 PM",
+        "event": "Closing Ceremony"
+      }
+    ]
+  }
+] 

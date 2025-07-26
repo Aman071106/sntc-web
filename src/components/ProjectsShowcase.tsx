@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { ExternalLink, Users, DollarSign, Mail, ArrowRight, Rocket, Car, Bot, Satellite } from 'lucide-react';
+import { ExternalLink, Users, DollarSign, Mail, ArrowRight, Rocket, Car, Bot, Satellite, Terminal } from 'lucide-react';
 
 // Import project images
 import marsRoverImg from '@/assets/project_images/Mars_rover.png';
@@ -28,7 +28,7 @@ interface Project {
 const projects: Project[] = [
   {
     id: 1,
-    title: "Team Deimos - Mars Rover Project",
+    title: "Mars Rover Project",
     description: "Designing and building mars rover capable of traversing uneven terrain and performing variety of manipulations, for participating in University Rover Challenge (URC)",
     teamLead: "Bhuvan Narula",
     members: ["Sumit Kumar Sahu", "Aritra Boral", "Harshvardhan Singh"],
@@ -94,15 +94,15 @@ const ProjectsShowcase = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
-    <section className="py-20 px-4 relative overflow-hidden" data-section="projects">
+    <section id="projects" className="py-20 px-4 pb-32 relative overflow-hidden" data-section="projects">
       {/* Background elements */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 z-0">
         <div className="absolute top-20 left-10 w-2 h-2 bg-primary rounded-full animate-pulse" />
         <div className="absolute top-40 right-20 w-1 h-1 bg-secondary rounded-full animate-pulse" />
         <div className="absolute bottom-20 left-1/4 w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
       </div>
 
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Section header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-6">
@@ -191,11 +191,42 @@ const ProjectsShowcase = () => {
           ))}
         </div>
 
-        {/* View all button */}
-        <div className="text-center mt-16">
-          <Button className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-all duration-300 transform hover:scale-105">
-            Explore All Missions
-          </Button>
+        {/* Call to Action */}
+        <div className="text-center mt-16 relative z-20">
+          <div className="space-y-4">
+            <p className="text-lg text-muted-foreground">
+              Ready to contribute to cutting-edge projects?
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-all duration-300 transform hover:scale-105"
+                onClick={() => {
+                  // Scroll to contact section
+                  const contactSection = document.querySelector('#contact');
+                  if (contactSection) {
+                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
+                <span>Join a Project Team</span>
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+              <Button 
+                variant="outline"
+                className="px-8 py-4 border-2 border-accent/50 text-accent rounded-lg font-semibold hover:bg-accent hover:text-accent-foreground transition-all duration-300 transform hover:scale-105"
+                onClick={() => {
+                  // Open terminal
+                  const terminalButton = document.querySelector('[title="Open Terminal (Ctrl+`)"]') as HTMLButtonElement;
+                  if (terminalButton) {
+                    terminalButton.click();
+                  }
+                }}
+              >
+                <span>Access Terminal</span>
+                <Terminal className="w-5 h-5 ml-2" />
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
 

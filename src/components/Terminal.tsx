@@ -19,10 +19,10 @@ export const Terminal = () => {
   const commands = {
     help: 'Available commands:\n- help: Show this help message\n- status: Show system status\n- clubs: List all club modules\n- projects: Show active projects\n- team: Display core team\n- events: Show upcoming events\n- clear: Clear terminal screen\n',
     status: 'SNTC Network Status: OPERATIONAL\nNetwork: Connected',
-    clubs: 'Active Club Modules:\n[CLUB_001] Robotronics Club\n[CLUB_002] Programming Club (KAMAND_PROMPT) \n[CLUB_003] Space Technology Cell \n[CLUB_004] Entrepreneurship Cell \n[CLUB_005] Bioengineering Group(KBG) \n[CLUB_006] Yantrik Club \n[CLUB_007] Nirmaan Club \n[CLUB_008] Society of Automative Engineers (SAE)\n[CLUB_009] System Administration and Infosec Cell (SAIC) \n[CLUB_010] Gamedev (CG2D)',
+    clubs: 'Active Club Modules:\n[CLUB_001] Programming Club (KP)\n[CLUB_002] STAC (Space Technology)\n[CLUB_003] Robotronics Club\n[CLUB_004] Yantrik Club\n[CLUB_005] KBG (Bioengineering)\n[CLUB_006] GDG (Google Developers)\n[CLUB_007] SAE (Automotive)\n[CLUB_008] Nirmaan Club\n\nSpecialized Cells:\n[CELL_001] SAIC (Cybersecurity)\n[CELL_002] CG2D (Game Development)\n[CELL_003] E-Cell (Entrepreneurship)\n[CELL_004] Heuristics (AI/ML)',
     projects: 'Active Projects:\n[PROJ_001] Team Deimos - Mars Rover Project (URC)\n[PROJ_002] SAE Efficycle \'24 (TADPOLE_CONFIG)\n[PROJ_003] Wall Climber Robot (VACUUM_TECH)\n[PROJ_004] Formula Bharat (RAPTOR_RACING)\n[PROJ_005] IN-SPACE CANSAT (SATELLITE_LAUNCH)',
     team: 'Core Team Members:\n[USER_001] Aryan Singh- Technical Secretary ',
-    events: 'Scheduled Events:[EVENT_001] TIP Hackathon 2025  - August 1, 2025',
+                  events: 'Scheduled Events:\n[EVENT_001] Utkarsh Tech Fest - March 15, 2025\n[EVENT_002] Xpecto Premier Fest - October 20-22, 2025\n[EVENT_003] Inter-IIT Bootcamp - July 10-15, 2025',
     clear: 'CLEAR_SCREEN',
     hack: 'ACCESS DENIED!\n[WARNING] Unauthorized access attempt detected\n[INFO] Incident logged to security database\n[JOKE] Nice try though! 😄'
   };

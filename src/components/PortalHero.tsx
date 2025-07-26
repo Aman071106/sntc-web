@@ -77,7 +77,15 @@ const PortalHero = () => {
           isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
         }`}>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-all duration-300 transform hover:scale-105">
+            <button 
+              className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-all duration-300 transform hover:scale-105"
+              onClick={() => {
+                const clubsSection = document.querySelector('[data-section="clubs-cells"]');
+                if (clubsSection) {
+                  clubsSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+            >
               Explore Clubs
             </button>
             <button 

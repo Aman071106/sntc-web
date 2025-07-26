@@ -6,17 +6,17 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { name: 'Clubs', href: '#clubs' },
-    { name: 'Cells', href: '#cells' },
-    { name: 'Events', href: '#events' },
+    { name: 'Home', href: '#home' },
+    { name: 'Clubs', href: '#clubs-cells' },
     { name: 'Projects', href: '#projects' },
+    { name: 'Events', href: '#events' },
     { name: 'News', href: '#news' },
     { name: 'Resources', href: '#resources' },
     { name: 'Contact', href: '#contact' }
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-md border-b border-border">
+    <nav className="fixed top-0 left-0 right-0 z-[100] bg-card/80 backdrop-blur-md border-b border-border">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -35,7 +35,14 @@ const Navigation = () => {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-foreground hover:text-primary transition-colors duration-300 relative group"
+                className="text-foreground hover:text-primary transition-colors duration-300 relative group cursor-pointer"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const element = document.querySelector(item.href);
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
               >
                 {item.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
@@ -62,8 +69,15 @@ const Navigation = () => {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-foreground hover:text-primary transition-colors duration-300 py-2"
-                  onClick={() => setIsOpen(false)}
+                  className="text-foreground hover:text-primary transition-colors duration-300 py-2 cursor-pointer"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsOpen(false);
+                    const element = document.querySelector(item.href);
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
                 >
                   {item.name}
                 </a>
