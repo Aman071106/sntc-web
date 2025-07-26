@@ -117,7 +117,7 @@
     "registrationLink": "https://sntc.iitmandi.co.in/events/bootcamp",
     "calendarLink": "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Inter-IIT%20Bootcamp%202025&dates=20250710T090000/20250715T170000&details=Intensive%20learning%20program%20for%20cutting-edge%20technical%20skills&location=IIT%20Mandi%20Campus",
     "status": "upcoming",
-    "hasDetailedPage": false,
+    "hasDetailedPage": true,
     "highlights": [
       "Intensive Learning Sessions",
       "Industry Expert Mentorship",

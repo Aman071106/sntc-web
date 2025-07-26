@@ -1,0 +1,119 @@
+[
+    {
+      "id": 1,
+      "title": "Utkarsh Tech Fest",
+      "date": "2025-03-15",
+      "type": "event",
+      "description": "Annual intra-college tech fest",
+      "venue": "IIT Mandi Campus",
+      "time": "9:00 AM - 6:00 PM"
+    },
+    {
+      "id": 2,
+      "title": "Utkarsh Registration Deadline",
+      "date": "2025-03-10",
+      "type": "deadline",
+      "description": "Last date to register for Utkarsh",
+      "venue": "Online",
+      "time": "11:59 PM"
+    },
+    {
+      "id": 3,
+      "title": "Xpecto Registration Deadline",
+      "date": "2025-10-15",
+      "type": "deadline",
+      "description": "Last date to register for Xpecto",
+      "venue": "Online",
+      "time": "11:59 PM"
+    },
+    {
+      "id": 4,
+      "title": "Xpecto Premier Fest - Day 1",
+      "date": "2025-10-20",
+      "type": "event",
+      "description": "Premier inter-college tech fest - Opening day",
+      "venue": "IIT Mandi Campus",
+      "time": "9:00 AM - 8:00 PM"
+    },
+    {
+      "id": 5,
+      "title": "Xpecto Premier Fest - Day 2",
+      "date": "2025-10-21",
+      "type": "event",
+      "description": "Premier inter-college tech fest - Main events",
+      "venue": "IIT Mandi Campus",
+      "time": "9:00 AM - 8:00 PM"
+    },
+    {
+      "id": 6,
+      "title": "Xpecto Premier Fest - Day 3",
+      "date": "2025-10-22",
+      "type": "event",
+      "description": "Premier inter-college tech fest - Final day",
+      "venue": "IIT Mandi Campus",
+      "time": "9:00 AM - 8:00 PM"
+    },
+    {
+      "id": 7,
+      "title": "Inter-IIT Bootcamp Registration Deadline",
+      "date": "2025-07-05",
+      "type": "deadline",
+      "description": "Last date to register for bootcamp",
+      "venue": "Online",
+      "time": "11:59 PM"
+    },
+    {
+      "id": 8,
+      "title": "Inter-IIT Bootcamp - Day 1",
+      "date": "2025-07-10",
+      "type": "workshop",
+      "description": "Bootcamp orientation and team formation",
+      "venue": "IIT Mandi Campus",
+      "time": "9:00 AM - 5:00 PM"
+    },
+    {
+      "id": 9,
+      "title": "Inter-IIT Bootcamp - Day 2",
+      "date": "2025-07-11",
+      "type": "workshop",
+      "description": "Technical workshops begin",
+      "venue": "IIT Mandi Campus",
+      "time": "9:00 AM - 5:00 PM"
+    },
+    {
+      "id": 10,
+      "title": "Inter-IIT Bootcamp - Day 3",
+      "date": "2025-07-12",
+      "type": "workshop",
+      "description": "Advanced technical sessions",
+      "venue": "IIT Mandi Campus",
+      "time": "9:00 AM - 5:00 PM"
+    },
+    {
+      "id": 11,
+      "title": "Inter-IIT Bootcamp - Day 4",
+      "date": "2025-07-13",
+      "type": "workshop",
+      "description": "Project development and mentorship",
+      "venue": "IIT Mandi Campus",
+      "time": "9:00 AM - 5:00 PM"
+    },
+    {
+      "id": 12,
+      "title": "Inter-IIT Bootcamp - Day 5",
+      "date": "2025-07-14",
+      "type": "workshop",
+      "description": "Project presentations",
+      "venue": "IIT Mandi Campus",
+      "time": "9:00 AM - 5:00 PM"
+    },
+    {
+      "id": 13,
+      "title": "Inter-IIT Bootcamp - Closing Ceremony",
+      "date": "2025-07-15",
+      "type": "event",
+      "description": "Final presentations and closing ceremony",
+      "venue": "IIT Mandi Campus",
+      "time": "2:00 PM - 5:00 PM"
+    }
+  ]

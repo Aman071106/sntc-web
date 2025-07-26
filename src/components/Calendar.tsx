@@ -10,6 +10,9 @@ import {
   Clock
 } from 'lucide-react';
 
+// Import calendar data
+import calendarData from '@/assets/calendar.json';
+
 interface CalendarEvent {
   id: number;
   title: string;
@@ -20,57 +23,27 @@ interface CalendarEvent {
   time: string;
 }
 
-const events: CalendarEvent[] = [
-  {
-    id: 1,
-    title: "Utkarsh Tech Fest",
-    date: "2025-03-15",
-    type: "event",
-    description: "Annual intra-college tech fest",
-    venue: "IIT Mandi Campus",
-    time: "9:00 AM - 6:00 PM"
-  },
-  {
-    id: 2,
-    title: "Xpecto Registration Deadline",
-    date: "2025-10-15",
-    type: "deadline",
-    description: "Last date to register for Xpecto",
-    venue: "Online",
-    time: "11:59 PM"
-  },
-  {
-    id: 3,
-    title: "Xpecto Premier Fest",
-    date: "2025-10-20",
-    type: "event",
-    description: "Premier inter-college tech fest",
-    venue: "IIT Mandi Campus",
-    time: "9:00 AM - 8:00 PM"
-  },
-  {
-    id: 4,
-    title: "Inter-IIT Bootcamp",
-    date: "2025-07-10",
-    type: "workshop",
-    description: "Intensive learning program",
-    venue: "IIT Mandi Campus",
-    time: "9:00 AM - 5:00 PM"
-  },
-  {
-    id: 5,
-    title: "Bootcamp Registration Deadline",
-    date: "2025-07-05",
-    type: "deadline",
-    description: "Last date to register for bootcamp",
-    venue: "Online",
-    time: "11:59 PM"
-  }
-];
-
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [events, setEvents] = useState<CalendarEvent[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Load calendar data on component mount
+  useEffect(() => {
+    const loadCalendarData = () => {
+      try {
+        setEvents(calendarData as CalendarEvent[]);
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to load calendar data');
+        setLoading(false);
+      }
+    };
+
+    loadCalendarData();
+  }, []);
 
   const getDaysInMonth = (date: Date) => {
     const year = date.getFullYear();
@@ -84,7 +57,11 @@ const Calendar = () => {
   };
 
   const getEventsForDate = (date: Date) => {
-    const dateString = date.toISOString().split('T')[0];
+    // Create date string in local timezone to avoid timezone issues
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const dateString = `${year}-${month}-${day}`;
     return events.filter(event => event.date === dateString);
   };
 
@@ -132,6 +109,57 @@ const Calendar = () => {
   // Add days of the month
   for (let i = 1; i <= daysInMonth; i++) {
     days.push(new Date(currentDate.getFullYear(), currentDate.getMonth(), i));
+  }
+
+  // Get upcoming events (future events only)
+  const upcomingEvents = events
+    .filter(event => {
+      // Create date object in local timezone to avoid timezone issues
+      const [year, month, day] = event.date.split('-').map(Number);
+      const eventDate = new Date(year, month - 1, day);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // Reset time to compare dates only
+      return eventDate >= today;
+    })
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    .slice(0, 5);
+
+  if (loading) {
+    return (
+      <section id="calendar" className="py-20 px-4 pb-32 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-6">
+              Event Calendar
+            </h2>
+            <div className="flex items-center justify-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+              <span className="ml-2 text-muted-foreground">Loading calendar...</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section id="calendar" className="py-20 px-4 pb-32 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-6">
+              Event Calendar
+            </h2>
+            <div className="text-center">
+              <p className="text-destructive mb-4">{error}</p>
+              <Button onClick={() => window.location.reload()}>
+                Try Again
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
   }
 
   return (
@@ -297,10 +325,8 @@ const Calendar = () => {
                 Upcoming Events
               </h3>
               <div className="space-y-3">
-                {events
-                  .filter(event => new Date(event.date) > new Date())
-                  .slice(0, 5)
-                  .map(event => (
+                {upcomingEvents.length > 0 ? (
+                  upcomingEvents.map(event => (
                     <div key={event.id} className="p-3 rounded-lg bg-muted/20 border border-border">
                       <div className="flex items-start justify-between mb-2">
                         <h4 className="font-medium text-foreground text-sm">{event.title}</h4>
@@ -310,10 +336,20 @@ const Calendar = () => {
                       </div>
                       <div className="flex items-center gap-2 text-xs text-muted-foreground">
                         <CalendarIcon className="w-3 h-3" />
-                        {new Date(event.date).toLocaleDateString()}
+                        {(() => {
+                          // Parse date in local timezone to avoid timezone issues
+                          const [year, month, day] = event.date.split('-').map(Number);
+                          const eventDate = new Date(year, month - 1, day);
+                          return eventDate.toLocaleDateString();
+                        })()}
                       </div>
                     </div>
-                  ))}
+                  ))
+                ) : (
+                  <p className="text-sm text-muted-foreground text-center py-4">
+                    No upcoming events
+                  </p>
+                )}
               </div>
             </Card>
           </div>
@@ -323,4 +359,4 @@ const Calendar = () => {
   );
 };
 
-export default Calendar; 
+export default Calendar;

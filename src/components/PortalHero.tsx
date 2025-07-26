@@ -104,10 +104,12 @@ const PortalHero = () => {
       </div>
 
       {/* Terminal cursor */}
-      <div className="absolute bottom-8 left-8 text-accent text-sm font-mono">
-        <span>{'>'} sntc.init()...</span>
-        <span className="animate-pulse">_</span>
-      </div>
+      <div className="absolute bottom-24 left-4 sm:bottom-8 sm:left-8 text-accent text-sm font-mono">
+  <span>{'>'} sntc.init()...</span>
+  <span className="animate-pulse">_</span>
+</div>
+
+
     </div>
   );
 };

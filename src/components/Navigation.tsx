@@ -12,7 +12,6 @@ const Navigation = () => {
     { name: 'Events', href: '#events' },
     { name: 'News', href: '#news' },
     { name: 'Calendar', href: '#calendar' },
-    { name: 'Team', href: '/team' },
     { name: 'Contact', href: '#contact' }
   ];
 

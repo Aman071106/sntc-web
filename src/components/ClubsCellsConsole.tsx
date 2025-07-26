@@ -252,10 +252,11 @@ const ClubsCellsConsole = () => {
 
       {/* IDE Style Details Modal */}
       <Dialog open={!!selectedItem} onOpenChange={() => setSelectedItem(null)}>
-        <DialogContent className="max-w-6xl max-h-[90vh] overflow-hidden bg-card border-2 border-primary/30 p-0 z-50">
-          {selectedItem && (
-            <div className="flex flex-col h-full">
-              {/* Console Header */}
+      <DialogContent 
+  className="w-[98vw] max-w-none bg-card border-2 border-primary/30 p-0 z-50 h-auto max-h-[95vh] mt-1 sm:mt-3"
+>      {selectedItem && (
+        <div className="p-3 sm:p-6 overflow-y-auto">
+        {/* Console Header */}
               <div className="bg-muted/20 border-b border-border p-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
@@ -273,11 +274,11 @@ const ClubsCellsConsole = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                    <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                  </div>
+                  <div className="flex items-center gap-2 hidden sm:flex">
+  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+</div>
                 </div>
               </div>
 

@@ -18,8 +18,11 @@ const Index = () => {
   return (
     <div id="home" className="min-h-screen bg-background">
       <Navigation />
-      <FloatingHeadlines />
+      
       <div className="pt-16">
+    
+  <FloatingHeadlines />
+
         <PortalHero />
         <ClubsCellsConsole />
         <ProjectsShowcase />
@@ -55,10 +58,10 @@ const Index = () => {
                 </div>
                 <h3 className="text-2xl font-bold text-foreground mb-2">Aryan Singh</h3>
                 <p className="text-primary font-semibold mb-4">Technical Secretary</p>
-                <p className="text-muted-foreground mb-4">technical_secretary@students.iitmandi.ac.in</p>
+                <p className="text-muted-foreground mb-4 flex items-center justify-center">technical_secretary@students.iitmandi.ac.in</p>
               </div>
               
-              <div className="flex justify-center gap-4">
+              <div className="flex flex-wrap justify-center gap-2">
                 <Button
                   variant="outline"
                   onClick={() => window.open('https://www.linkedin.com/in/aryan0singh/', '_blank')}
