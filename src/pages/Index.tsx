@@ -30,7 +30,7 @@ const Index = () => {
         <NewsSection />
         <Calendar />
         <QuickLinks />
-        <VideoMeetings />
+        {/* <VideoMeetings /> */}
         <ChatGroq />
         <Terminal />
       </div>
