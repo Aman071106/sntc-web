@@ -23,20 +23,8 @@ import {
   Monitor,
   Terminal
 } from 'lucide-react';
-
-// Import club and cell images
-import programmingImg from '@/assets/club_cells_images/programming.png';
-import stacImg from '@/assets/club_cells_images/stac.png';
-import robotronicsImg from '@/assets/club_cells_images/robotronics.png';
-import yantrikImg from '@/assets/club_cells_images/yantrik.png';
-import kbgImg from '@/assets/club_cells_images/KBG.png';
-import gdgImg from '@/assets/club_cells_images/gdg.png';
-import saeImg from '@/assets/club_cells_images/Sae.jpeg';
-import nirmaanImg from '@/assets/club_cells_images/nirmaan.png';
-import saicImg from '@/assets/club_cells_images/saic.png';
-import cg2dImg from '@/assets/club_cells_images/cg2d.png';
-import ecellImg from '@/assets/club_cells_images/ecell.png';
-import heuristicsImg from '@/assets/club_cells_images/hueristics.png';
+import clubsDataJson from '@/assets/clubs_data.json';
+import cellsDataJson from '@/assets/cells_data.json';
 
 interface ClubCell {
   id: number;
@@ -52,204 +40,18 @@ interface ClubCell {
   color: string;
   memberCount: number;
   events: number;
-  type: 'club' | 'cell';
+  type?: 'club' | 'cell';
 }
+const clubCellImages = import.meta.glob('@/assets/club_cells_images/*', { eager: true, import: 'default' });
 
-const clubsData: ClubCell[] = [
-  {
-    id: 1,
-    name: "Programming Club",
-    shortName: "KP",
-    fullName: "Programming Club (KamandPrompt)",
-    description: "An enthusiastic coder ? Here is the club for you. It is a club dedicated to programming related activities. It keeps you updated with all the programming related activities and competitions. It also organizes several competitions and workshops to increase coding skills. The Association for Computing and Machinery(ACM) Chapter at IIT Mandi organizes various guest lectures and tutorials from time to time.",
-    image: programmingImg,
-    website: "http://pc.iitmandi.co.in/",
-    email: "programming@iitmandi.ac.in",
-    category: "Programming",
-    icon: "code",
-    color: "primary",
-    memberCount: 200,
-    events: 20,
-    type: "club"
-  },
-  {
-    id: 2,
-    name: "STAC",
-    shortName: "STAC",
-    fullName: "Space Technology and Astronomy Cell",
-    description: "STAC aims at making students familiar with everything related to Astronomy, Space and Open Source development in the field of Space Technology. The club has 2 telescopes, a 12\" telescope under construction, a pair of binoculars and organizes frequent star-gazing sessions and undertakes several interesting technical projects.",
-    image: stacImg,
-    website: "http://stac.iitmandi.co.in/",
-    email: "stac@iitmandi.ac.in",
-    category: "Space Technology",
-    icon: "satellite",
-    color: "secondary",
-    memberCount: 120,
-    events: 15,
-    type: "club"
-  },
-  {
-    id: 3,
-    name: "Robotronics Club",
-    shortName: "Robotronics",
-    fullName: "Robotronics Club",
-    description: "Robotics + Electronics = Robotronics. This club works in the field of both robotics and electronics. In electronics domain, it works on analog and digital electronics helping in developing practical skills in building and designing circuits. On the other hand in robotics it provides everything that students need to build robots : workspace , tools, supplies, money and experienced people to answer questions and help with projects.",
-    image: robotronicsImg,
-    website: "http://robotronics.iitmandi.co.in/",
-    email: "robotronics@iitmandi.ac.in",
-    category: "Robotics",
-    icon: "bot",
-    color: "primary",
-    memberCount: 150,
-    events: 12,
-    type: "club"
-  },
-  {
-    id: 4,
-    name: "Yantrik Club",
-    shortName: "Yantrik",
-    fullName: "Yantrik Club",
-    description: "As a part of the technical council of IIT Mandi, this club plays a cruical role in the field of mechanical engineering. It focuses on developing green and effective energy methods. It organizes activities like arCAD, MechFest.",
-    image: yantrikImg,
-    website: "https://yantrik.iitmandi.co.in/",
-    email: "yantrik@iitmandi.ac.in",
-    category: "Mechanical",
-    icon: "settings",
-    color: "accent",
-    memberCount: 110,
-    events: 12,
-    type: "club"
-  },
-  {
-    id: 5,
-    name: "KBG",
-    shortName: "KBG",
-    fullName: "Kamand Bioengineering Group",
-    description: "At the juncture of biology and engineering, KBG offers exposure to a multitude of outlooks and a broad variety of topics including computational biology, genetics, neuroscience, biomechanics, biotechnology, nanotechnology, biomimetics and other associated forks diverging from the interplay of nature's craft and the intellectual desire to grasp it.",
-    image: kbgImg,
-    website: "https://www.instagram.com/kbg_iitmandi/",
-    email: "kbg@iitmandi.ac.in",
-    category: "Bioengineering",
-    icon: "dna",
-    color: "secondary",
-    memberCount: 90,
-    events: 8,
-    type: "club"
-  },
-  {
-    id: 6,
-    name: "GDG",
-    shortName: "GDG",
-    fullName: "Google Developers Group",
-    description: "GDSC stands for Google Developer Student Clubs. Google DSCs are a program run by Google to support and empower students who are interested in technology. They provide resources and support for students to learn and apply their skills, including access to Google technologies, mentorship from Google experts, and opportunities to connect with other students and professionals in the tech industry.",
-    image: gdgImg,
-    website: "https://gdsc.community.dev/iit-mandi/",
-    email: "gdg@iitmandi.ac.in",
-    category: "Technology",
-    icon: "code",
-    color: "primary",
-    memberCount: 180,
-    events: 25,
-    type: "club"
-  },
-  {
-    id: 7,
-    name: "SAE",
-    shortName: "SAE",
-    fullName: "Society of Automotive Engineers",
-    description: "SAE IIT Mandi is a enthusiastic, motivated and passionate team of engineers whose interest resides in gears, suspensions, engines, brakes etc., talking in a nutshell an automobile.",
-    image: saeImg,
-    website: "https://clubsae.iitmandi.co.in/",
-    email: "sae@iitmandi.ac.in",
-    category: "Automotive",
-    icon: "car",
-    color: "accent",
-    memberCount: 100,
-    events: 10,
-    type: "club"
-  },
-  {
-    id: 8,
-    name: "Nirmaan Club",
-    shortName: "Nirmaan",
-    fullName: "Nirmaan Club",
-    description: "Nirmaan Club aims at creating a realization among students of the importance of Civil Engineering aspects in day to day which are often ignored by organizing events, workshops, quizzes, projects etc.",
-    image: nirmaanImg,
-    website: "https://www.facebook.com/groups/802179339895110/",
-    email: "nirmaan@iitmandi.ac.in",
-    category: "Civil Engineering",
-    icon: "building",
-    color: "secondary",
-    memberCount: 85,
-    events: 6,
-    type: "club"
-  },
-  {
-    id: 9,
-    name: "SAIC",
-    shortName: "SAIC",
-    fullName: "System Administration and Infosec Cell",
-    description: "Welcome to S.A.I.C (System Administration and Infosec Cell) at IIT Mandi! Our team of cyber enthusiasts excels in Capture The Flag (CTF) competitions and outsmarting hackers. We host and maintain secure websites with style and finesse. Passionate about penetration testing? We'll teach you how to spot vulnerabilities faster than campus Wi-Fi. Discover fun injections that challenge even the pros. Join us to help script a future where security breaches are history. At S.A.I.C, we're dedicated to making the digital world safer, one hack at a time!",
-    image: saicImg,
-    website: "https://saic.iitmandi.co.in/",
-    email: "saic@iitmandi.ac.in",
-    category: "Cybersecurity",
-    icon: "shield",
-    color: "accent",
-    memberCount: 80,
-    events: 8,
-    type: "cell"
-  },
-  {
-    id: 10,
-    name: "CG2D",
-    shortName: "CG2D",
-    fullName: "Computer Graphics and Game Development",
-    description: "The CG2D Club is a community for digital creativity and interactive entertainment. We offer workshops, projects, and seminars on 3D modeling, animation, game design, and real-time rendering. Our programs help members create stunning visuals and immersive games. Whether you're an experienced developer or a beginner, CG2D provides the resources and support to excel in computer graphics and game development.",
-    image: cg2dImg,
-    website: "https://cg2d.iitmandi.co.in/",
-    email: "cg2d@iitmandi.ac.in",
-    category: "Game Development",
-    icon: "gamepad-2",
-    color: "primary",
-    memberCount: 95,
-    events: 12,
-    type: "cell"
-  },
-  {
-    id: 11,
-    name: "E-Cell",
-    shortName: "E-Cell",
-    fullName: "Entrepreneurship Cell",
-    description: "E-Cell is a holographic abbreviation adopted by the entrepreneurship club of IIT Mandi. It's an alumnus initiation and currently is the stewardship of a team of five inter-disciplinary students with the mentorship of Dr. Satvasheel Powar, churning their ideas to reach the various aspects of what lies in this \"business\" of reaching the society. And as the name celebrates our crazy love for subjects related to business and its disciplinaries we always strive to give a glimpse of the potions of business by conducting multifarious of events.",
-    image: ecellImg,
-    website: "https://ecell.iitmandi.co.in/",
-    email: "ecell@iitmandi.ac.in",
-    category: "Entrepreneurship",
-    icon: "trending-up",
-    color: "secondary",
-    memberCount: 72,
-    events: 10,
-    type: "cell"
-  },
-  {
-    id: 12,
-    name: "Heuristics Cell",
-    shortName: "Heuristics",
-    fullName: "Heuristics Cell",
-    description: "At Heuristics we focus on enhancing the culture of Data Science, Machine Learning at IIT Mandi. It also expands to solve complex optimization problems. It underlies the whole field of Artificial Intelligence and the computer simulation of thinking, as they may be used in situations where there are no known algorithms. We organize regular events, challenges and workshops.",
-    image: heuristicsImg,
-    website: "https://heuristics.iitmandi.co.in/",
-    email: "heuristics@iitmandi.ac.in",
-    category: "AI/ML",
-    icon: "brain",
-    color: "primary",
-    memberCount: 65,
-    events: 15,
-    type: "cell"
-  }
-];
+const getImage = (fileName: string) => {
+  const match = Object.entries(clubCellImages).find(([path]) => path.endsWith(fileName));
+  return match ? match[1] : '';
+};
 
+const clubsData: ClubCell[] = (clubsDataJson as ClubCell[]).map(club => ({ ...club, type: 'club' }));
+const cellsData: ClubCell[] = (cellsDataJson as ClubCell[]).map(cell => ({ ...cell, type: 'cell' }));
+const allData: ClubCell[] = [...clubsData, ...cellsData];
 const getIconComponent = (iconName: string) => {
   const iconMap: { [key: string]: React.ReactNode } = {
     code: <Code className="w-6 h-6" />,
@@ -344,8 +146,8 @@ const ClubsCellsConsole = () => {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            {clubsData.map((item, index) => {
-              const angle = (index * (360 / clubsData.length) + rotationAngle) * (Math.PI / 180);
+            {allData.map((item, index) => {
+              const angle = (index * (360 / allData.length) + rotationAngle) * (Math.PI / 180);
               const radius = 200;
               const x = Math.cos(angle) * radius;
               const y = Math.sin(angle) * radius;
@@ -371,7 +173,7 @@ const ClubsCellsConsole = () => {
                     <div className="p-3 text-center">
                       <div className="w-8 h-8 mx-auto mb-1">
                         <img 
-                          src={item.image} 
+                          src={getImage(item.image)} 
                           alt={item.name}
                           className="w-full h-full object-cover rounded"
                         />
@@ -380,7 +182,7 @@ const ClubsCellsConsole = () => {
                         {item.shortName}
                       </div>
                       <div className="text-xs font-mono text-muted-foreground">
-                        {item.type.toUpperCase()}
+                        {item.type?.toUpperCase()}
                       </div>
                     </div>
                   </Card>
@@ -430,19 +232,19 @@ const ClubsCellsConsole = () => {
         {/* Quick Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 relative z-20">
           <div className="bg-card/50 backdrop-blur-sm border border-primary/20 rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-primary">{clubsData.filter(item => item.type === 'club').length}</div>
+            <div className="text-2xl font-bold text-primary">{allData.filter(item => item.type === 'club').length}</div>
             <div className="text-sm text-muted-foreground">Clubs</div>
           </div>
           <div className="bg-card/50 backdrop-blur-sm border border-accent/20 rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-accent">{clubsData.filter(item => item.type === 'cell').length}</div>
+            <div className="text-2xl font-bold text-accent">{allData.filter(item => item.type === 'cell').length}</div>
             <div className="text-sm text-muted-foreground">Cells</div>
           </div>
           <div className="bg-card/50 backdrop-blur-sm border border-secondary/20 rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-secondary">{clubsData.reduce((sum, item) => sum + item.memberCount, 0)}+</div>
+            <div className="text-2xl font-bold text-secondary">{allData.reduce((sum, item) => sum + item.memberCount, 0)}+</div>
             <div className="text-sm text-muted-foreground">Members</div>
           </div>
           <div className="bg-card/50 backdrop-blur-sm border border-primary/20 rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-primary">{clubsData.reduce((sum, item) => sum + item.events, 0)}+</div>
+            <div className="text-2xl font-bold text-primary">{allData.reduce((sum, item) => sum + item.events, 0)}+</div>
             <div className="text-sm text-muted-foreground">Events</div>
           </div>
         </div>
@@ -458,14 +260,14 @@ const ClubsCellsConsole = () => {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-lg overflow-hidden border-2 border-primary/30">
-                      <img src={selectedItem.image} alt={selectedItem.name} className="w-full h-full object-cover" />
+                      <img src={getImage(selectedItem.image)} alt={selectedItem.name} className="w-full h-full object-cover" />
                     </div>
                     <div>
                       <h2 className="text-xl font-bold text-foreground">{selectedItem.fullName}</h2>
                       <div className="flex items-center gap-4 text-sm text-muted-foreground">
                         <span className="font-mono">{selectedItem.category}</span>
                         <span className="font-mono">•</span>
-                        <span className="font-mono">{selectedItem.type.toUpperCase()}</span>
+                        <span className="font-mono">{selectedItem.type?.toUpperCase()}</span>
                         <span className="font-mono">•</span>
                         <span className="font-mono">{selectedItem.memberCount}+ members</span>
                       </div>

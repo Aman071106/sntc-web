@@ -61,9 +61,13 @@ const TeamMembers = () => {
           <div className="flex justify-center">
             <Card className="w-80 p-6 bg-card/50 backdrop-blur-sm border-2 border-primary/20 hover:border-primary/50 transition-all duration-500 hover:scale-105">
               <div className="text-center">
-                <div className="w-32 h-32 bg-primary/20 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <Users className="w-16 h-16 text-primary" />
-                </div>
+              <div className="w-40 h-40 bg-accent/20 rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden">
+                <img 
+                  src='https://media.licdn.com/dms/image/v2/D5603AQEMrxbutFh3Bw/profile-displayphoto-shrink_800_800/B56ZPgkYXPG8Ag-/0/1734639454413?e=1756339200&v=beta&t=lqM4cHw2YB2VBoQvqnw3GY66cp7sp56FdxsXVTOWo7s' 
+                  alt="Event Icon" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
                 <h3 className="text-xl font-bold text-foreground mb-2">{technical_secretary.name}</h3>
                 <Badge className="mb-4 bg-primary/20 text-primary border-primary/30">
                   {technical_secretary.position}
@@ -96,7 +100,7 @@ const TeamMembers = () => {
                       variant="outline"
                       size="sm"
                       onClick={() => window.open(`mailto:${technical_secretary.email}`, '_blank')}
-                      className="border-secondary/30 text-secondary hover:bg-secondary hover:text-secondary-foreground"
+                      className="border-secondary/400 text-secondary/1000 hover:bg-secondary hover:text-secondary-foreground"
                     >
                       <Mail className="w-4 h-4" />
                     </Button>
@@ -124,9 +128,15 @@ const TeamMembers = () => {
                 className="p-6 bg-card/50 backdrop-blur-sm border-2 border-accent/20 hover:border-accent/50 transition-all duration-500 hover:scale-105"
               >
                 <div className="text-center">
-                  <div className="w-20 h-20 bg-accent/20 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Users className="w-10 h-10 text-accent" />
-                  </div>
+                <div className="w-40 h-40 bg-accent/20 rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden">
+                <img 
+                  src='https://media.licdn.com/dms/image/v2/D5603AQEMrxbutFh3Bw/profile-displayphoto-shrink_800_800/B56ZPgkYXPG8Ag-/0/1734639454413?e=1756339200&v=beta&t=lqM4cHw2YB2VBoQvqnw3GY66cp7sp56FdxsXVTOWo7s' 
+                  alt="Event Icon" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+
                   <h3 className="text-lg font-bold text-foreground mb-2">{member.name}</h3>
                   <Badge className="mb-4 bg-accent/20 text-accent border-accent/30">
                     {member.position}

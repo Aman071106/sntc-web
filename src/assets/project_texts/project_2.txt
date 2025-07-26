@@ -1,8 +1,0 @@
-SAE Efficycle '24
-SAE Efficycle '24
-Efficycle is a versatile vehicle powered by both manual pedaling and battery-based electric power. Users can pedal manually without battery backup and even charge the vehicle while pedaling, making Efficycle environmentally friendly and less labor-intensive than traditional bicycles. Its unique tadpole configuration, featuring two front wheels and one rear wheel, provides enhanced stability on mountainous terrains compared to the conventional delta configuration.
-Team Lead: Keshav Verma
-Team Lead: Keshav Verma
-Members: Hemank Soni, Satwik Jaiswal, Bhavya Somani, Pranjal Vats, Vaibhav Jain, Khushal Sharma, Ishan Sinha, Sarthak Goel, Sumit Sahu, Sushil Kumar, Ashmit Ojha, Mohammed Sufiyan
-Budget:INR 2,47,000
-sae@iitmandi.ac.in

@@ -1,32 +1,64 @@
 [
   {
-    "project_id": 1,
-    "text_file": "project_texts\\project_1.txt",
-    "image_file": "project_images\\Mars_rover.png",
-    "image_url": "https://sntc.iitmandi.co.in/images/Mars_rover.png"
+    "id": 1,
+    "title": "Mars Rover Project",
+    "description": "Designing and building mars rover capable of traversing uneven terrain and performing variety of manipulations, for participating in University Rover Challenge (URC)",
+    "teamLead": "Bhuvan Narula",
+    "members": ["Sumit Kumar Sahu", "Aritra Boral", "Harshvardhan Singh"],
+    "budget": "INR 2,01,000",
+    "email": "robotronics@iitmandi.ac.in",
+    "image": "Mars_rover.png",
+    "icon": "rocket",
+    "category": "Space Robotics"
   },
   {
-    "project_id": 2,
-    "text_file": "project_texts\\project_2.txt",
-    "image_file": "project_images\\Sae-efficycle.jpeg",
-    "image_url": "https://sntc.iitmandi.co.in/images/Sae-efficycle.jpeg"
+    "id": 2,
+    "title": "SAE Efficycle '24",
+    "description": "Efficycle is a versatile vehicle powered by both manual pedaling and battery-based electric power. Users can pedal manually without battery backup and even charge the vehicle while pedaling, making Efficycle environmentally friendly and less labor-intensive than traditional bicycles. Its unique tadpole configuration, featuring two front wheels and one rear wheel, provides enhanced stability on mountainous terrains compared to the conventional delta configuration.",
+    "teamLead": "Keshav Verma",
+    "members": ["Hemank Soni", "Satwik Jaiswal", "Bhavya Somani", "Pranjal Vats", "Vaibhav Jain", "Khushal Sharma", "Ishan Sinha", "Sarthak Goel", "Sumit Sahu", "Sushil Kumar", "Ashmit Ojha", "Mohammed Sufiyan"],
+    "budget": "INR 2,47,000",
+    "email": "sae@iitmandi.ac.in",
+    "image": "Sae-efficycle.jpeg",
+    "icon": "car",
+    "category": "Automotive"
   },
   {
-    "project_id": 3,
-    "text_file": "project_texts\\project_3.txt",
-    "image_file": "project_images\\Wall_climber.jpg",
-    "image_url": "https://sntc.iitmandi.co.in/images/Wall_climber.jpg"
+    "id": 3,
+    "title": "Wall Climber Robot",
+    "description": "Wall Climber Robot is a robotic system designed to navigate vertical surfaces and ceilings using vacuum technology and suction cups to adhere securely to various surfaces. They are primarily used for inspection and maintenance in industrial facilities and infrastructure, such as tanks, bridges, and high-rise buildings. In construction, they assist with facade inspection, painting, and cleaning. Additionally, they serve surveillance and security purposes for military, law enforcement, and search and rescue operations. These robots enhance safety and efficiency, providing access to areas that are difficult or hazardous for human workers, driven by advancements in robotics and suction technology.",
+    "teamLead": "Vaibhav Kesharwani",
+    "teamCoLead": "Aritra Boral",
+    "members": ["Sumit Kumar Sahu", "Suraj Raj", "Rishabh Shrival", "Aditya Sharma", "Anmol Kumar", "Gyan Ratan", "Manjeet Rai", "Tarun Singh", "Avirup Ghosh", "Molik Tyagi"],
+    "budget": "INR 35,000",
+    "email": "sntc@iitmandi.ac.in",
+    "image": "Wall_climber.jpg",
+    "icon": "bot",
+    "category": "Robotics"
   },
   {
-    "project_id": 4,
-    "text_file": "project_texts\\project_4.txt",
-    "image_file": "project_images\\SAE_bharat.jpg",
-    "image_url": "https://sntc.iitmandi.co.in/images/SAE_bharat.jpg"
+    "id": 4,
+    "title": "Formula Bharat",
+    "description": "Our project aims to design, fabricate, and compete with a Formula E race car at Formula Bharat 2026. Raptor Racing, a team of 27 dedicated IIT Mandi engineering students, guided by Dr. Sarthak Nag and experienced mentors, focuses on innovative design, hands-on learning, and interdisciplinary collaboration across mechanical, electrical, and documentation tasks. The competition allows us to apply theoretical knowledge to real-world challenges, enhancing our skills in CAD, CAM, FEA, CFD, and more. Our vehicle will feature advanced technologies in battery management, regenerative braking, and thermal management, reflecting our commitment to sustainability and efficiency.",
+    "teamLead": "Vaibhav Jain",
+    "teamCoLead": "Sarthak Goel",
+    "members": ["Bhavya Somani", "Pranjal Vats", "Khushal Sharma", "Shivam Anand", "Vani", "Tanishi Gupta", "Arendra", "Vishal Kumar", "Aaryan Tyagi", "Aditya", "Badal Gupta", "Harnoor Singh", "Harsh Verma", "Pujan Purohit", "Hrishikesh Kulkarni", "Samdeep", "Vasudev", "Shashwat Saha", "Bhavya", "Shanti Devi", "Rijvana bano", "Akash Goel", "Veedhee Channey", "Sathvika", "Aarushi"],
+    "budget": "INR 7,97,990",
+    "email": "sae@iitmandi.ac.in",
+    "image": "SAE_bharat.jpg",
+    "icon": "car",
+    "category": "Formula Racing"
   },
   {
-    "project_id": 5,
-    "text_file": "project_texts\\project_5.txt",
-    "image_file": "project_images\\Cansat.jpeg",
-    "image_url": "https://sntc.iitmandi.co.in/images/Cansat.jpeg"
+    "id": 5,
+    "title": "IN-SPACE CANSAT",
+    "description": "Our team is participating in the IN-SPACe CANSAT India Student Competition, organized by the Astronautical Society of India and ISRO. We will design, develop, and launch a CAN-sized satellite weighing 1 kg to an altitude of 1000 meters.",
+    "teamLead": "Saransh Duharia",
+    "members": ["Satyam Patil", "Bhumesh Gaur", "Vishal Kumar", "Nakul Gupta", "Deepansha Deora", "Sania Jain", "Meghana Sannapareddy"],
+    "budget": "INR 70,000",
+    "email": "stac@iitmandi.ac.in",
+    "image": "Cansat.jpeg",
+    "icon": "satellite",
+    "category": "Space Technology"
   }
 ]
