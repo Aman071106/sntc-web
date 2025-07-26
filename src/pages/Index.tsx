@@ -3,62 +3,37 @@ import PortalHero from '@/components/PortalHero';
 import ClubsCellsConsole from '@/components/ClubsCellsConsole';
 import ProjectsShowcase from '@/components/ProjectsShowcase';
 import EventsShowcase from '@/components/EventsShowcase';
+import NewsSection from '@/components/NewsSection';
+import Calendar from '@/components/Calendar';
+import QuickLinks from '@/components/QuickLinks';
+import FloatingHeadlines from '@/components/FloatingHeadlines';
+import ChatGroq from '@/components/ChatGroq';
+import VideoMeetings from '@/components/VideoMeetings';
 import { Terminal } from '@/components/Terminal';
+import { Button } from '@/components/ui/button';
+import { Users, Linkedin, Instagram, Mail } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Index = () => {
   return (
     <div id="home" className="min-h-screen bg-background">
       <Navigation />
-      <PortalHero />
-      <ClubsCellsConsole />
-      <ProjectsShowcase />
-      <EventsShowcase />
+      <FloatingHeadlines />
+      <div className="pt-16">
+        <PortalHero />
+        <ClubsCellsConsole />
+        <ProjectsShowcase />
+        <EventsShowcase />
+        <NewsSection />
+        <Calendar />
+        <QuickLinks />
+        <VideoMeetings />
+        <ChatGroq />
+        <Terminal />
+      </div>
 
-      {/* News Section */}
-      <section id="news" className="py-20 px-4 pb-32 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-6">
-              Tech News
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Latest updates from the world of technology and innovation
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Latest Tech News */}
-            <div className="bg-card/50 backdrop-blur-sm border border-primary/20 rounded-lg p-6 hover:border-primary/50 transition-all duration-300">
-              <h3 className="text-xl font-bold text-foreground mb-4">Latest in AI</h3>
-              <p className="text-muted-foreground mb-4">Discover the newest breakthroughs in artificial intelligence and machine learning</p>
-              <button className="w-full bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
-                Read More
-              </button>
-            </div>
-
-            {/* Innovation Updates */}
-            <div className="bg-card/50 backdrop-blur-sm border border-accent/20 rounded-lg p-6 hover:border-accent/50 transition-all duration-300">
-              <h3 className="text-xl font-bold text-foreground mb-4">Innovation Hub</h3>
-              <p className="text-muted-foreground mb-4">Explore cutting-edge innovations and breakthrough technologies</p>
-              <button className="w-full bg-accent text-accent-foreground px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
-                Explore
-              </button>
-            </div>
-
-            {/* Research Highlights */}
-            <div className="bg-card/50 backdrop-blur-sm border border-secondary/20 rounded-lg p-6 hover:border-secondary/50 transition-all duration-300">
-              <h3 className="text-xl font-bold text-foreground mb-4">Research Highlights</h3>
-              <p className="text-muted-foreground mb-4">Stay updated with the latest research papers and academic breakthroughs</p>
-              <button className="w-full bg-secondary text-secondary-foreground px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
-                View Papers
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Resources Section */}
-      <section id="resources" className="py-20 px-4 pb-32 relative overflow-hidden">
+      {/* Contact Section */}
+      <section id="contact" className="py-20 px-4 pb-32 relative overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-6">
@@ -112,32 +87,62 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* General Contact */}
-            <div className="bg-card/50 backdrop-blur-sm border border-primary/20 rounded-lg p-6 hover:border-primary/50 transition-all duration-300">
-              <h3 className="text-xl font-bold text-foreground mb-4">General Inquiries</h3>
-              <p className="text-muted-foreground mb-4">Contact us for general questions about SNTC and our activities</p>
-              <button className="w-full bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
-                Send Message
-              </button>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Technical Secretary Contact */}
+            <div className="bg-card/50 backdrop-blur-sm border border-primary/20 rounded-lg p-8 hover:border-primary/50 transition-all duration-300">
+              <div className="text-center mb-6">
+                <div className="w-20 h-20 bg-primary/20 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <Users className="w-10 h-10 text-primary" />
+                </div>
+                <h3 className="text-2xl font-bold text-foreground mb-2">Aryan Singh</h3>
+                <p className="text-primary font-semibold mb-4">Technical Secretary</p>
+                <p className="text-muted-foreground mb-4">technical_secretary@students.iitmandi.ac.in</p>
+              </div>
+              
+              <div className="flex justify-center gap-4">
+                <Button
+                  variant="outline"
+                  onClick={() => window.open('https://www.linkedin.com/in/aryan0singh/', '_blank')}
+                  className="border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground"
+                >
+                  <Linkedin className="w-4 h-4 mr-2" />
+                  LinkedIn
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => window.open('https://www.instagram.com/skd.arya18/', '_blank')}
+                  className="border-accent/30 text-accent hover:bg-accent hover:text-accent-foreground"
+                >
+                  <Instagram className="w-4 h-4 mr-2" />
+                  Instagram
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => window.open('mailto:technical_secretary@students.iitmandi.ac.in', '_blank')}
+                  className="border-secondary/30 text-secondary hover:bg-secondary hover:text-secondary-foreground"
+                >
+                  <Mail className="w-4 h-4 mr-2" />
+                  Email
+                </Button>
+              </div>
             </div>
 
-            {/* Technical Support */}
-            <div className="bg-card/50 backdrop-blur-sm border border-accent/20 rounded-lg p-6 hover:border-accent/50 transition-all duration-300">
-              <h3 className="text-xl font-bold text-foreground mb-4">Technical Support</h3>
-              <p className="text-muted-foreground mb-4">Get help with technical issues and platform support</p>
-              <button className="w-full bg-accent text-accent-foreground px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
-                Get Support
-              </button>
-            </div>
-
-            {/* Collaboration */}
-            <div className="bg-card/50 backdrop-blur-sm border border-secondary/20 rounded-lg p-6 hover:border-secondary/50 transition-all duration-300">
-              <h3 className="text-xl font-bold text-foreground mb-4">Collaborations</h3>
-              <p className="text-muted-foreground mb-4">Partner with us for events, projects, and initiatives</p>
-              <button className="w-full bg-secondary text-secondary-foreground px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
-                Partner With Us
-              </button>
+            {/* Team Members Link */}
+            <div className="bg-card/50 backdrop-blur-sm border border-accent/20 rounded-lg p-8 hover:border-accent/50 transition-all duration-300">
+              <div className="text-center mb-6">
+                <div className="w-20 h-20 bg-accent/20 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <Users className="w-10 h-10 text-accent" />
+                </div>
+                <h3 className="text-2xl font-bold text-foreground mb-4">Meet Our Team</h3>
+                <p className="text-muted-foreground mb-6">Explore the complete core team and their profiles</p>
+              </div>
+              
+              <Link to="/team">
+                <Button className="w-full bg-accent text-accent-foreground hover:opacity-90 transition-opacity">
+                  <Users className="w-4 h-4 mr-2" />
+                  View All Team Members
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -212,9 +217,6 @@ const Index = () => {
           </div>
         </div>
       </section>
-      
-      {/* Terminal Component */}
-      <Terminal />
     </div>
   );
 };

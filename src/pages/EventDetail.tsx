@@ -35,6 +35,8 @@ interface EventDetail {
   participants: string;
   status: string;
   hasDetailedPage: boolean;
+  registrationLink: string;
+  calendarLink: string;
   highlights: string[];
   schedule: { time: string; event: string }[];
 }
@@ -57,6 +59,8 @@ const eventsData: EventDetail[] = [
     participants: "500+",
     status: "upcoming",
     hasDetailedPage: true,
+    registrationLink: "https://sntc.iitmandi.co.in/events/utkarsh",
+    calendarLink: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Utkarsh%20Tech%20Fest&dates=20250315T090000/20250315T180000&details=Our%20annual%20intra-college%20tech%20fest%20at%20IIT%20Mandi&location=IIT%20Mandi%20Campus",
     highlights: [
       "Coding Competitions",
       "Robotics Challenges", 
@@ -90,6 +94,8 @@ const eventsData: EventDetail[] = [
     participants: "2000+",
     status: "upcoming",
     hasDetailedPage: true,
+    registrationLink: "https://sntc.iitmandi.co.in/events/xpecto",
+    calendarLink: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Xpecto%20Premier%20Tech%20Fest&dates=20251020T090000/20251022T200000&details=IIT%20Mandi%27s%20premier%20tech%20fest%20with%20national%20level%20competitions&location=IIT%20Mandi%20Campus",
     highlights: [
       "National Level Competitions",
       "Industry Expert Talks",
@@ -259,11 +265,18 @@ const EventDetail = () => {
                   <p className="text-sm text-muted-foreground mb-1">Registration Deadline</p>
                   <p className="text-accent font-medium">{event.registrationDeadline}</p>
                 </div>
-                <Button className="w-full bg-accent text-accent-foreground hover:opacity-90">
+                <Button 
+                  className="w-full bg-accent text-accent-foreground hover:opacity-90"
+                  onClick={() => window.open(event.registrationLink, '_blank')}
+                >
                   <ExternalLink className="w-4 h-4 mr-2" />
                   Register Now
                 </Button>
-                <Button variant="outline" className="w-full border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground">
+                <Button 
+                  variant="outline" 
+                  className="w-full border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground"
+                  onClick={() => window.open(event.calendarLink, '_blank')}
+                >
                   <Star className="w-4 h-4 mr-2" />
                   Add to Calendar
                 </Button>

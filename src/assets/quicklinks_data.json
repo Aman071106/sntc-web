@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Gymkhana Website",
+    "description": "Official Student Gymkhana portal",
+    "url": "https://iitmandi.co.in/",
+    "icon": "users",
+    "category": "official"
+  },
+  {
+    "id": 2,
+    "name": "Cultural Council",
+    "description": "Cultural activities and events",
+    "url": "https://iitmandi.co.in/cultural.html",
+    "icon": "music",
+    "category": "cultural"
+  },
+  {
+    "id": 3,
+    "name": "IIT Mandi Website",
+    "description": "Official institute website",
+    "url": "https://iitmandi.ac.in",
+    "icon": "graduation-cap",
+    "category": "official"
+  }
+] 

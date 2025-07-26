@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "text": "🚀 Team Deimos wins 2nd place in URC 2024!",
+    "type": "achievement",
+    "priority": "high",
+    "link": "/projects/1"
+  },
+  {
+    "id": 2,
+    "text": "🎯 Xpecto 2025 registration now open!",
+    "type": "event",
+    "priority": "high",
+    "link": "/events/2"
+  },
+  {
+    "id": 3,
+    "text": "💡 New AI/ML workshop series starting next month",
+    "type": "announcement",
+    "priority": "medium",
+    "link": "/events"
+  },
+  {
+    "id": 4,
+    "text": "🏆 SAE Efficycle team qualifies for nationals",
+    "type": "achievement",
+    "priority": "high",
+    "link": "/projects/2"
+  },
+  {
+    "id": 5,
+    "text": "🔬 Research paper published in IEEE Robotics",
+    "type": "achievement",
+    "priority": "medium",
+    "link": "/news"
+  },
+  {
+    "id": 6,
+    "text": "🎪 Utkarsh 2025: Biggest tech fest yet!",
+    "type": "event",
+    "priority": "high",
+    "link": "/events/1"
+  },
+  {
+    "id": 7,
+    "text": "🤖 Robotronics Club launches new automation project",
+    "type": "announcement",
+    "priority": "medium",
+    "link": "/clubs-cells"
+  },
+  {
+    "id": 8,
+    "text": "🌟 Inter-IIT Bootcamp applications closing soon",
+    "type": "event",
+    "priority": "high",
+    "link": "/events/3"
+  }
+] 

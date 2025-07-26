@@ -99,8 +99,43 @@ All colors MUST be HSL.
   .terminal-line {
     @apply whitespace-pre-wrap;
   }
-  
+
   .terminal-line:empty {
     @apply h-4;
   }
+}
+
+/* Typewriter Animation */
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.animate-typewriter {
+  animation: typewriter 2s steps(40, end);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Sweep Animation */
+@keyframes sweep {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.animate-sweep {
+  animation: sweep 4s ease-in-out infinite;
 }

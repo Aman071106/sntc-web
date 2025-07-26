@@ -97,7 +97,7 @@ const EventsShowcase = () => {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 relative z-30">
           <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-6">
             Upcoming Events
           </h2>
@@ -142,32 +142,10 @@ const EventsShowcase = () => {
                     {event.description}
                   </p>
 
-                  {/* Event details */}
-                  <div className="space-y-2 mb-4 text-xs text-muted-foreground">
-                    <div className="flex items-center gap-2">
-                      <Calendar className="w-3 h-3" />
-                      <span>{event.date}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-3 h-3" />
-                      <span>{event.time}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <MapPin className="w-3 h-3" />
-                      <span>{event.venue}</span>
-                    </div>
-                  </div>
-
-                  {/* Event stats */}
-                  <div className="flex justify-between items-center mb-4 text-xs text-muted-foreground">
-                    <div className="flex items-center gap-1">
-                      <Users className="w-3 h-3" />
-                      <span>{event.participants} participants</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Trophy className="w-3 h-3" />
-                      <span>{event.prizePool}</span>
-                    </div>
+                  {/* Event date */}
+                  <div className="flex items-center gap-2 mb-4 text-xs text-muted-foreground">
+                    <Calendar className="w-3 h-3" />
+                    <span>{event.date}</span>
                   </div>
 
                   {/* Action button */}
