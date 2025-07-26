@@ -8,7 +8,7 @@ import Calendar from '@/components/Calendar';
 import QuickLinks from '@/components/QuickLinks';
 import FloatingHeadlines from '@/components/FloatingHeadlines';
 import ChatGroq from '@/components/ChatGroq';
-import VideoMeetings from '@/components/VideoMeetings';
+// import VideoMeetings from '@/components/VideoMeetings';
 import { Terminal } from '@/components/Terminal';
 import { Button } from '@/components/ui/button';
 import { Users, Linkedin, Instagram, Mail } from 'lucide-react';
