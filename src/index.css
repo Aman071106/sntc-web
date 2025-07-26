@@ -83,7 +83,6 @@ All colors MUST be HSL.
     --foreground: 210 40% 95%;
   }
 }
-}
 
 @layer base {
   * {
