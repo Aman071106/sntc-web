@@ -23,36 +23,36 @@ const ClubCard = ({
   const getThemeClasses = () => {
     switch (theme) {
       case 'robot':
-        return 'border-robot-blue hover:shadow-[0_0_30px_hsl(220_100%_60%_/_0.3)] hover:border-robot-blue/50';
+        return 'border-primary hover:shadow-lg hover:border-primary/50';
       case 'hacker':
-        return 'border-terminal-green hover:shadow-[0_0_30px_hsl(120_85%_45%_/_0.3)] hover:border-terminal-green/50';
+        return 'border-accent hover:shadow-lg hover:border-accent/50';
       case 'space':
-        return 'border-neon-purple hover:shadow-[0_0_30px_hsl(270_100%_65%_/_0.3)] hover:border-neon-purple/50';
+        return 'border-secondary hover:shadow-lg hover:border-secondary/50';
       case 'energy':
-        return 'border-energy-orange hover:shadow-[0_0_30px_hsl(25_100%_55%_/_0.3)] hover:border-energy-orange/50';
+        return 'border-accent hover:shadow-lg hover:border-accent/50';
       case 'bio':
-        return 'border-neon-green hover:shadow-[0_0_30px_hsl(120_100%_50%_/_0.3)] hover:border-neon-green/50';
+        return 'border-primary hover:shadow-lg hover:border-primary/50';
       case 'automotive':
-        return 'border-space-gray hover:shadow-[0_0_30px_hsl(220_10%_30%_/_0.3)] hover:border-space-gray/50';
+        return 'border-muted hover:shadow-lg hover:border-muted/50';
       case 'civil':
-        return 'border-muted hover:shadow-[0_0_30px_hsl(220_15%_20%_/_0.3)] hover:border-muted/50';
+        return 'border-muted hover:shadow-lg hover:border-muted/50';
       case 'programming':
-        return 'border-neon-cyan hover:shadow-[0_0_30px_hsl(180_100%_50%_/_0.3)] hover:border-neon-cyan/50';
+        return 'border-primary hover:shadow-lg hover:border-primary/50';
       default:
-        return 'border-border hover:shadow-portal';
+        return 'border-border hover:shadow-lg';
     }
   };
 
   const getIconGlow = () => {
     switch (theme) {
-      case 'robot': return 'drop-shadow-[0_0_10px_hsl(220_100%_60%_/_0.5)]';
-      case 'hacker': return 'drop-shadow-[0_0_10px_hsl(120_85%_45%_/_0.5)]';
-      case 'space': return 'drop-shadow-[0_0_10px_hsl(270_100%_65%_/_0.5)]';
-      case 'energy': return 'drop-shadow-[0_0_10px_hsl(25_100%_55%_/_0.5)]';
-      case 'bio': return 'drop-shadow-[0_0_10px_hsl(120_100%_50%_/_0.5)]';
-      case 'automotive': return 'drop-shadow-[0_0_10px_hsl(220_10%_30%_/_0.5)]';
-      case 'civil': return 'drop-shadow-[0_0_10px_hsl(220_15%_20%_/_0.5)]';
-      case 'programming': return 'drop-shadow-[0_0_10px_hsl(180_100%_50%_/_0.5)]';
+      case 'robot': return 'drop-shadow-lg';
+      case 'hacker': return 'drop-shadow-lg';
+      case 'space': return 'drop-shadow-lg';
+      case 'energy': return 'drop-shadow-lg';
+      case 'bio': return 'drop-shadow-lg';
+      case 'automotive': return 'drop-shadow-lg';
+      case 'civil': return 'drop-shadow-lg';
+      case 'programming': return 'drop-shadow-lg';
       default: return '';
     }
   };
@@ -61,7 +61,7 @@ const ClubCard = ({
     <Card className={`
       group relative overflow-hidden bg-card/50 backdrop-blur-sm border-2 
       transition-all duration-500 hover:scale-105 cursor-pointer
-      animate-float hover:animate-none
+      hover:animate-none
       ${getThemeClasses()}
     `}>
       {/* Circuit pattern overlay */}

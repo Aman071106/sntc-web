@@ -84,15 +84,15 @@ const ClubsOrbit = () => {
     <section className="py-20 px-4 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-2 h-2 bg-neon-cyan rounded-full animate-pulse" />
-        <div className="absolute top-40 right-20 w-1 h-1 bg-neon-purple rounded-full animate-pulse" />
-        <div className="absolute bottom-20 left-1/4 w-1.5 h-1.5 bg-energy-orange rounded-full animate-pulse" />
+        <div className="absolute top-20 left-10 w-2 h-2 bg-primary rounded-full animate-pulse" />
+        <div className="absolute top-40 right-20 w-1 h-1 bg-secondary rounded-full animate-pulse" />
+        <div className="absolute bottom-20 left-1/4 w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
       </div>
 
       <div className="max-w-7xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-neon-cyan to-neon-purple bg-clip-text text-transparent mb-6">
+          <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-6">
             Tech Clusters
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -117,7 +117,7 @@ const ClubsOrbit = () => {
 
         {/* View all button */}
         <div className="text-center mt-16">
-          <button className="px-8 py-4 bg-gradient-tech text-primary-foreground rounded-lg font-semibold hover:shadow-neon transition-all duration-300 transform hover:scale-105">
+          <button className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-all duration-300 transform hover:scale-105">
             Explore All Activities
           </button>
         </div>

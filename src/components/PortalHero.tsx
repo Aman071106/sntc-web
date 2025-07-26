@@ -10,13 +10,13 @@ const PortalHero = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-space">
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
       {/* Animated stars background */}
       <div className="absolute inset-0">
         {[...Array(50)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
+            className="absolute w-1 h-1 bg-foreground rounded-full animate-pulse"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -29,7 +29,7 @@ const PortalHero = () => {
 
       {/* Scan line effect */}
       <div className="absolute inset-0">
-        <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-neon-cyan to-transparent animate-scan-line opacity-30" />
+        <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent opacity-30" />
       </div>
 
       {/* Central portal */}
@@ -41,8 +41,8 @@ const PortalHero = () => {
         >
           {/* Portal energy rings */}
           <div className="absolute inset-0 -m-8">
-            <div className="w-96 h-96 border-2 border-neon-cyan rounded-full animate-portal-spin opacity-50" />
-            <div className="absolute top-4 left-4 w-80 h-80 border border-neon-purple rounded-full animate-portal-spin opacity-30" style={{animationDirection: 'reverse'}} />
+            <div className="w-96 h-96 border-2 border-primary rounded-full animate-spin opacity-50" />
+            <div className="absolute top-4 left-4 w-80 h-80 border border-secondary rounded-full animate-spin opacity-30" style={{animationDirection: 'reverse'}} />
           </div>
           
           {/* Portal image */}
@@ -50,9 +50,9 @@ const PortalHero = () => {
             <img 
               src={portalImage} 
               alt="Central Portal" 
-              className="w-full h-full object-cover rounded-full animate-pulse-glow"
+              className="w-full h-full object-cover rounded-full animate-pulse"
             />
-            <div className="absolute inset-0 bg-gradient-portal rounded-full opacity-20" />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-full opacity-20" />
           </div>
         </div>
 
@@ -60,7 +60,7 @@ const PortalHero = () => {
         <div className={`transition-all duration-1000 delay-500 ${
           isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
         }`}>
-          <h1 className="text-6xl md:text-8xl font-bold bg-gradient-to-r from-neon-cyan to-neon-purple bg-clip-text text-transparent mb-4">
+          <h1 className="text-6xl md:text-8xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-4">
             SnTC
           </h1>
           <h2 className="text-2xl md:text-4xl font-light text-foreground mb-6">
@@ -77,10 +77,10 @@ const PortalHero = () => {
           isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
         }`}>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-4 bg-gradient-portal text-primary-foreground rounded-lg font-semibold hover:shadow-portal transition-all duration-300 transform hover:scale-105">
+            <button className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-all duration-300 transform hover:scale-105">
               Explore Clubs
             </button>
-            <button className="px-8 py-4 border-2 border-neon-cyan text-neon-cyan rounded-lg font-semibold hover:bg-neon-cyan hover:text-primary-foreground transition-all duration-300 transform hover:scale-105">
+            <button className="px-8 py-4 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-primary-foreground transition-all duration-300 transform hover:scale-105">
               View Projects
             </button>
           </div>
@@ -88,9 +88,9 @@ const PortalHero = () => {
       </div>
 
       {/* Terminal cursor */}
-      <div className="absolute bottom-8 left-8 text-terminal-green text-sm font-mono">
+      <div className="absolute bottom-8 left-8 text-accent text-sm font-mono">
         <span>{'>'} system.initialize()...</span>
-        <span className="animate-terminal-blink">_</span>
+        <span className="animate-pulse">_</span>
       </div>
     </div>
   );
