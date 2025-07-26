@@ -104,38 +104,44 @@ const ChatGemini = () => {
   };
 
   const callGeminiAPI = async (userInput: string): Promise<string> => {
-    const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
+    // Build the same context you had before
     const contextMessage = `You are an AI assistant for SnTC (Science and Technology Council) at IIT Mandi. Use this data to answer questions:
-
-CLUBS:
-${JSON.stringify(sntcData.clubs, null, 2)}
-
-CELLS:
-${JSON.stringify(sntcData.cells, null, 2)}
-
-PROJECTS:
-${JSON.stringify(sntcData.projects, null, 2)}
-
-EVENTS:
-${JSON.stringify(sntcData.events, null, 2)}
-
-CORE TEAM:
-${JSON.stringify(sntcData.coreTeam, null, 2)}
-
-QUICK LINKS:
-${JSON.stringify(sntcData.quickLinks, null, 2)}
-
-Guidelines:
-- Answer only about SnTC data.
-- Be helpful and concise.
-- Use specific details (emails, dates, descriptions).
-- If info is missing, say "I don't have that information".`;
-
-    const result = await model.generateContent(`${contextMessage}\nUser: ${userInput}`);
-    return result.response.text();
+  
+  CLUBS:
+  ${JSON.stringify(sntcData.clubs, null, 2)}
+  
+  CELLS:
+  ${JSON.stringify(sntcData.cells, null, 2)}
+  
+  PROJECTS:
+  ${JSON.stringify(sntcData.projects, null, 2)}
+  
+  EVENTS:
+  ${JSON.stringify(sntcData.events, null, 2)}
+  
+  CORE TEAM:
+  ${JSON.stringify(sntcData.coreTeam, null, 2)}
+  
+  QUICK LINKS:
+  ${JSON.stringify(sntcData.quickLinks, null, 2)}
+  
+  Guidelines:
+  - Answer only about SnTC data.
+  - Be helpful and concise.
+  - Use specific details (emails, dates, descriptions).
+  - If info is missing, say "I don't have that information".`;
+  
+    // Send full prompt (context + user question) to the API
+    const response = await fetch("/api/gemini", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt: `${contextMessage}\nUser: ${userInput}` })
+    });
+  
+    const data = await response.json();
+    return data.text;
   };
+  
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
