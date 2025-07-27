@@ -2,19 +2,16 @@ import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { 
-  ChevronLeft, 
-  ChevronRight, 
+import {
+  ChevronLeft,
+  ChevronRight,
   Calendar as CalendarIcon,
   MapPin,
   Clock
 } from 'lucide-react';
 
-// Import calendar data
-import calendarData from '@/assets/calendar.json';
-
 interface CalendarEvent {
-  id: number;
+  _id: string; // MongoDB ID
   title: string;
   date: string;
   type: 'event' | 'deadline' | 'workshop';
@@ -22,7 +19,7 @@ interface CalendarEvent {
   venue: string;
   time: string;
 }
-
+const BASE_URL=import.meta.env.VITE_API_BASE_URL
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -30,19 +27,24 @@ const Calendar = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Load calendar data on component mount
   useEffect(() => {
-    const loadCalendarData = () => {
+    const fetchCalendarEvents = async () => {
       try {
-        setEvents(calendarData as CalendarEvent[]);
+        setLoading(true);
+        const response = await fetch(`${BASE_URL}/api/calendar`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch calendar data');
+        }
+        const data: CalendarEvent[] = await response.json();
+        setEvents(data);
         setLoading(false);
-      } catch (err) {
-        setError('Failed to load calendar data');
+      } catch (err: any) {
+        setError(err.message);
         setLoading(false);
       }
     };
 
-    loadCalendarData();
+    fetchCalendarEvents();
   }, []);
 
   const getDaysInMonth = (date: Date) => {
@@ -52,7 +54,7 @@ const Calendar = () => {
     const lastDay = new Date(year, month + 1, 0);
     const daysInMonth = lastDay.getDate();
     const startingDay = firstDay.getDay();
-    
+
     return { daysInMonth, startingDay };
   };
 
@@ -254,7 +256,7 @@ const Calendar = () => {
                       <div className="space-y-1">
                         {dayEvents.slice(0, 2).map(event => (
                           <div
-                            key={event.id}
+                            key={event._id} // Use MongoDB _id
                             className={`w-full h-2 rounded-full ${getEventTypeColor(event.type)}`}
                             title={event.title}
                           />
@@ -287,7 +289,7 @@ const Calendar = () => {
                 </h3>
                 <div className="space-y-3">
                   {getEventsForDate(selectedDate).map(event => (
-                    <div key={event.id} className="p-3 rounded-lg bg-muted/20 border border-border">
+                    <div key={event._id} className="p-3 rounded-lg bg-muted/20 border border-border">
                       <div className="flex items-start justify-between mb-2">
                         <h4 className="font-medium text-foreground">{event.title}</h4>
                         <Badge className={`text-xs ${getEventTypeColor(event.type)}`}>
@@ -327,7 +329,7 @@ const Calendar = () => {
               <div className="space-y-3">
                 {upcomingEvents.length > 0 ? (
                   upcomingEvents.map(event => (
-                    <div key={event.id} className="p-3 rounded-lg bg-muted/20 border border-border">
+                    <div key={event._id} className="p-3 rounded-lg bg-muted/20 border border-border">
                       <div className="flex items-start justify-between mb-2">
                         <h4 className="font-medium text-foreground text-sm">{event.title}</h4>
                         <Badge className={`text-xs ${getEventTypeColor(event.type)}`}>

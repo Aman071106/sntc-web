@@ -1,6 +1,22 @@
 import ClubCard from './ClubCard';
-import clubsDataJson from '@/assets/clubs_data.json';
-import cellsDataJson from '@/assets/cells_data.json';
+import { useState, useEffect } from 'react';
+
+interface ClubCell {
+  _id: string; // MongoDB ID
+  name: string;
+  shortName: string;
+  fullName: string;
+  description: string;
+  image: string;
+  website: string;
+  email: string;
+  category: string;
+  icon: string;
+  color: string;
+  memberCount: number;
+  events: number;
+  type?: 'club' | 'cell';
+}
 
 // Dynamically import all images from assets
 const imageModules = import.meta.glob('@/assets/club_cells_images/*', { eager: true, import: 'default' });
@@ -9,19 +25,32 @@ const getImage = (img: string) => {
   const entry = Object.entries(imageModules).find(([key]) => key.endsWith(`/${img}`));
   return entry ? entry[1] : '';
 };
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const ClubsOrbit = () => {
-  const clubs = (clubsDataJson as any[]).map(club => ({
-    ...club,
-    image: getImage(club.image),   // ✅ Fix: set actual image path
-  }));
+  const [allItems, setAllItems] = useState<ClubCell[]>([]);
 
-  const cells = (cellsDataJson as any[]).map(cell => ({
-    ...cell,
-    image: getImage(cell.image),   // ✅ Fix: set actual image path
-  }));
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [clubsResponse, cellsResponse] = await Promise.all([
+          fetch(`${BASE_URL}/api/clubs`),
+          fetch(`${BASE_URL}/api/cells`,{
+          headers: {
+            'Cookie': 'WorkstationJwtPartitioned=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2Nsb3VkLmdvb2dsZS5jb20vd29ya3N0YXRpb25zIiwiYXVkIjoiZmlyZWJhc2Utc250Yy13ZWItMTc1MzU3ODc0OTQ3Mi5jbHVzdGVyLXprbTJqcndibmJkNGF3dWVkYzJhbHF4cnBrLmNsb3Vkd29ya3N0YXRpb25zLmRldiIsImlhdCI6MTc1MzU4MTI2NSwiZXhwIjoxNzUzNjY3NjY1fQ.JjBIvt92prQQwud5hdez7nJCNM-T7xuFPYGukKPuVzfOIVOjqEHHiSh5EZ39s3pkjptUoi4FV-z3qK-Q8XVCb9qc3iPacz43t7h3xCvBAfBoyfP9gexSNbKY41Fga1w7dNTlWoa0bptQ2b9SoZv03ih1iavJDOqd0e7w9bslPihfBgsD96zFhILb-7EEEIWVN63bRrsd0V9i4cMcFLa65JaJ-F5iYAGVtS6lSlTw_vrZ7APu-p4PbRu0q1c2TGLJavjI89iVdhE6IIYcirZ36BtkNvx_xE-xgNPplmBVSD4BHh6DyoFsquTAzePspRZ1qB7z7Su72KAYCRc2f_9Lzw' // full token here
+          },
+          credentials: 'include'}),
+        ]);
+        const clubsData: ClubCell[] = await clubsResponse.json();
+        const cellsData: ClubCell[] = await cellsResponse.json();
+        setAllItems([...clubsData.map(club => ({...club, type: 'club'})), ...cellsData.map(cell => ({...cell, type: 'cell'}))]);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
 
-  const allItems = [...clubs, ...cells]; // ✅ Merge both
+    fetchData();
+  }, []);
 
   return (
     <section className="py-20 px-4 relative overflow-hidden">
@@ -43,12 +72,12 @@ const ClubsOrbit = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {allItems.map((club, index) => (
-            <div 
-              key={club.id}
+            <div
+              key={club._id} // Use MongoDB _id
               className="transform transition-all duration-500"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <ClubCard {...club} image={club.image} /> {/* ✅ Pass correct image */}
+              <ClubCard {...club} image={getImage(club.image)} /> {/* ✅ Pass correct image */}
             </div>
           ))}
         </div>

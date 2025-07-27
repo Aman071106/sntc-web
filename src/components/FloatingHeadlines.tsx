@@ -1,21 +1,34 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import headlinesData from '@/assets/headlines_data.json';
 
 interface Headline {
-  id: number;
+  _id: string; // MongoDB ID
   text: string;
   type: string;
   priority: string;
   link: string;
 }
-
-const headlines: Headline[] = headlinesData;
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const IntegratedHeadlines = () => {
+  const [headlines, setHeadlines] = useState<Headline[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    const fetchHeadlines = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/api/headlines`);
+        const data: Headline[] = await response.json();
+        setHeadlines(data);
+      } catch (error) {
+        console.error('Error fetching headlines:', error);
+      }
+    };
+
+    fetchHeadlines();
+  }, []);
 
   useEffect(() => {
     if (isPaused || headlines.length <= 1) return;
@@ -25,7 +38,7 @@ const IntegratedHeadlines = () => {
     }, 4000);
 
     return () => clearInterval(interval);
-  }, [isPaused]);
+  }, [isPaused, headlines.length]);
 
   const handlePrevious = () => {
     setCurrentIndex((prev) => (prev - 1 + headlines.length) % headlines.length);
@@ -50,7 +63,7 @@ const IntegratedHeadlines = () => {
   if (!headlines.length) return null;
 
   const currentHeadline = headlines[currentIndex];
-  
+
   const getPriorityColors = (priority: string) => {
     switch (priority) {
       case 'high':
@@ -88,20 +101,20 @@ const IntegratedHeadlines = () => {
             <div className={`flex items-center gap-2 px-3 py-1 bg-gradient-to-r ${getPriorityColors(currentHeadline.priority)} rounded text-white text-sm font-bold`}>
               {currentHeadline.priority === 'high' && <Zap className="w-3 h-3" />}
               <span>
-                {currentHeadline.priority === 'high' ? 'BREAKING' : 
+                {currentHeadline.priority === 'high' ? 'BREAKING' :
                  currentHeadline.priority === 'medium' ? 'NEWS' : 'UPDATE'}
               </span>
             </div>
           </div>
 
           {/* Scrolling Text Container */}
-          <div 
+          <div
             className="flex-1 overflow-hidden cursor-pointer group"
             onClick={handleClick}
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
-            <div 
+            <div
               className={`whitespace-nowrap text-white font-medium text-base transition-transform duration-1000 ease-linear ${
                 isPaused ? '' : 'animate-scroll-left'
               } group-hover:text-yellow-300`}
@@ -121,15 +134,15 @@ const IntegratedHeadlines = () => {
               >
                 <ChevronLeft className="w-3 h-3" />
               </Button>
-              
+
               <div className="flex gap-1">
                 {headlines.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentIndex(index)}
                     className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                      index === currentIndex 
-                        ? 'bg-yellow-400' 
+                      index === currentIndex
+                        ? 'bg-yellow-400'
                         : 'bg-white/30 hover:bg-white/50'
                     }`}
                   />
@@ -166,7 +179,7 @@ const IntegratedHeadlines = () => {
             opacity: 0;
           }
         }
-        
+
         @keyframes scroll-left {
           0% {
             transform: translateX(10%);
@@ -175,11 +188,11 @@ const IntegratedHeadlines = () => {
             transform: translateX(-10%);
           }
         }
-        
+
         .animate-slide-right {
           animation: slide-right linear infinite;
         }
-        
+
         .animate-scroll-left {
           animation: scroll-left 8s ease-in-out infinite alternate;
         }

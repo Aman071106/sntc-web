@@ -1,12 +1,13 @@
+import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Calendar, ArrowRight } from 'lucide-react';
-import eventsDataJson from '@/assets/events_data.json';
 
 // Load all event images
 const eventImages = import.meta.glob('@/assets/events_images/*', { eager: true, import: 'default' });
 
 interface Event {
+  _id: string; // MongoDB ID
   id: number;
   name: string;
   fullName: string;
@@ -27,10 +28,29 @@ const getImage = (fileName: string) => {
   const match = Object.entries(eventImages).find(([path]) => path.endsWith(fileName));
   return match ? match[1] : '';
 };
-
-const events: Event[] = eventsDataJson as Event[];
-
+const BASE_URL=import.meta.env.VITE_API_BASE_URL;
 const EventsShowcase = () => {
+  const [events, setEvents] = useState<Event[]>([]);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/api/events`);
+        const data: Event[] = await response.json();
+        // Load images after fetching data
+        const eventsWithImages = data.map(event => ({
+          ...event,
+          image: getImage(event.image),
+        }));
+        setEvents(eventsWithImages);
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
   const handleViewMore = (event: Event) => {
     if (event.hasDetailedPage) {
       window.open(`/events/${event.id}`, '_blank');
@@ -55,14 +75,14 @@ const EventsShowcase = () => {
         {/* Events Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {events.map((event, index) => (
-            <Card 
-              key={event.id}
+            <Card
+              key={event._id} // Use MongoDB _id
               className="group relative overflow-hidden bg-card/50 backdrop-blur-sm border-2 border-primary/20 hover:border-primary/50 transition-all duration-500 hover:scale-105 h-full"
             >
               {/* Event Image */}
               <div className="relative h-48 overflow-hidden">
-                <img 
-                  src={getImage(event.image)} 
+                <img
+                  src={event.image}
                   alt={event.name}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
@@ -89,7 +109,7 @@ const EventsShowcase = () => {
                   <span>{event.date}</span>
                 </div>
 
-                <Button 
+                <Button
                   className="w-full bg-primary text-primary-foreground hover:opacity-90"
                   onClick={() => handleViewMore(event)}
                 >

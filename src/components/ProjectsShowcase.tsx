@@ -1,13 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ExternalLink, Users, DollarSign, Mail, ArrowRight, Rocket, Car, Bot, Satellite, Terminal } from 'lucide-react';
-import projectsData from '@/assets/projects_data.json';
 const projectImages = import.meta.glob('@/assets/project_images/*', { eager: true, import: 'default' });
 
 interface Project {
-  id: number;
+  _id: string; // MongoDB ID
   title: string;
   description: string;
   teamLead: string;
@@ -32,16 +31,30 @@ const getImage = (fileName: string) => {
   const match = Object.entries(projectImages).find(([path]) => path.endsWith(fileName));
   return match ? match[1] : '';
 };
-
+const BASE_URL=import.meta.env.VITE_API_BASE_URL;
 const ProjectsShowcase = () => {
+  const [projects, setProjects] = useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  // Load projects with resolved images + icons
-  const projects = (projectsData as Project[]).map(p => ({
-    ...p,
-    image: getImage(p.image),
-    icon: iconMap[p.icon] || <Rocket className="w-6 h-6" />
-  }));
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/api/projects`);
+        const data: Project[] = await response.json();
+        // Load images and map icons after fetching data
+        const projectsWithAssets = data.map(p => ({
+          ...p,
+          image: getImage(p.image),
+          icon: iconMap[p.icon] || <Rocket className="w-6 h-6" />
+        }));
+        setProjects(projectsWithAssets);
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+      }
+    };
+
+    fetchProjects();
+  }, []);
 
   return (
     <section id="projects" className="py-20 px-4 pb-32 relative overflow-hidden">
@@ -63,7 +76,7 @@ const ProjectsShowcase = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <div key={project.id} className="transform transition-all duration-500" style={{ animationDelay: `${index * 0.1}s` }}>
+            <div key={project._id} className="transform transition-all duration-500" style={{ animationDelay: `${index * 0.1}s` }}>
               <Card className="group relative overflow-hidden bg-card/50 backdrop-blur-sm border-2 border-primary/20 hover:border-primary/50 transition-all duration-500 hover:scale-105 cursor-pointer h-full">
                 <div className="relative h-48 overflow-hidden">
                   <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />

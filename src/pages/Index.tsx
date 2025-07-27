@@ -7,7 +7,7 @@ import NewsSection from '@/components/NewsSection';
 import Calendar from '@/components/Calendar';
 import QuickLinks from '@/components/QuickLinks';
 import FloatingHeadlines from '@/components/FloatingHeadlines';
-import ChatGroq from '@/components/ChatGroq';
+// import ChatGroq from '@/components/ChatGroq';
 // import VideoMeetings from '@/components/VideoMeetings';
 import { Terminal } from '@/components/Terminal';
 import { Button } from '@/components/ui/button';
@@ -31,7 +31,7 @@ const Index = () => {
         <Calendar />
         <QuickLinks />
         {/* <VideoMeetings /> */}
-        <ChatGroq />
+        {/* <ChatGroq /> */}
         <Terminal />
       </div>
 

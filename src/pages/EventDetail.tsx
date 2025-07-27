@@ -2,21 +2,20 @@ import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { 
-  Calendar, 
-  Clock, 
-  MapPin, 
-  Users, 
-  Trophy, 
-  ArrowLeft, 
+import {
+  Calendar,
+  Clock,
+  MapPin,
+  Users,
+  Trophy,
+  ArrowLeft,
   ExternalLink,
   CheckCircle,
   Star
 } from 'lucide-react';
 
-import eventsData from '@/assets/events_data.json';
-
 interface EventDetail {
+  _id: string; // MongoDB ID
   id: number;
   name: string;
   fullName: string;
@@ -38,7 +37,7 @@ interface EventDetail {
   highlights: string[];
   schedule: { time: string; event: string; }[];
 }
-
+const BASE_URL=import.meta.env.VITE_API_BASE_URL;
 const eventImages = import.meta.glob('@/assets/events_images/*', { eager: true, import: 'default' });
 
 const getImage = (fileName: string) => {
@@ -53,19 +52,24 @@ const EventDetail = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    try {
-      const eventId = parseInt(id);
-      const foundEvent = eventsData.find((e: any) => e.id === eventId);
-      if (!foundEvent) {
-        setError('Event not found');
+    const fetchEvent = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`${BASE_URL}/api/events/${id}`);
+        if (!response.ok) {
+          throw new Error('Event not found');
+        }
+        const data: EventDetail = await response.json();
+        setEvent({ ...data, image: getImage(data.image) });
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
         setLoading(false);
-        return;
       }
-      setEvent({ ...foundEvent, image: getImage(foundEvent.image) } as EventDetail);
-    } catch (err) {
-      setError('Failed to load event data');
-    } finally {
-      setLoading(false);
+    };
+
+    if (id) {
+      fetchEvent();
     }
   }, [id]);
 
@@ -101,8 +105,8 @@ const EventDetail = () => {
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <div className="relative h-64 sm:h-96 overflow-hidden">
-        <img 
-          src={event.image} 
+        <img
+          src={event.image}
           alt={event.name}
           className="w-full h-full object-cover"
         />
@@ -133,7 +137,7 @@ const EventDetail = () => {
       {/* Content Section */}
       <div className="container mx-auto px-4 py-8 sm:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
-          
+
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6 sm:space-y-8">
             <Card className="p-4 sm:p-8 bg-card/50 backdrop-blur-sm border border-primary/20">
@@ -222,15 +226,15 @@ const EventDetail = () => {
                   <p className="text-xs sm:text-sm text-muted-foreground mb-1">Registration Deadline</p>
                   <p className="text-accent font-medium text-sm sm:text-base">{event.registrationDeadline}</p>
                 </div>
-                <Button 
+                <Button
                   className="w-full bg-accent text-accent-foreground hover:opacity-90"
                   onClick={() => window.open(event.registrationLink, '_blank')}
                 >
                   <ExternalLink className="w-4 h-4 mr-2" />
                   Register Now
                 </Button>
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   className="w-full border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground"
                   onClick={() => window.open(event.calendarLink, '_blank')}
                 >
