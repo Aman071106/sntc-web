@@ -242,7 +242,7 @@ const TeamMembers = () => {
         {/* Footer */}
         <div className="text-center mt-16 pt-8 border-t border-border">
           <p className="text-sm text-muted-foreground">
-            Copyright © 2024 All Rights Reserved by SnTC, IIT Mandi
+            Copyright © 2025 All Rights Reserved by SnTC, IIT Mandi
           </p>
         </div>
       </div>
