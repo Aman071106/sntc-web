@@ -12,8 +12,7 @@ app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
   next();
 });
-const LIVEKIT_API_KEY = process.env.VITE_LIVEKIT_API_KEY;
-const LIVEKIT_API_SECRET = process.env.VITE_LIVEKIT_API_SECRET;
+
 const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri);
 
