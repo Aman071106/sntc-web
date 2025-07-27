@@ -2,19 +2,16 @@ import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { 
-  ChevronLeft, 
-  ChevronRight, 
+import {
+  ChevronLeft,
+  ChevronRight,
   Calendar as CalendarIcon,
   MapPin,
   Clock
 } from 'lucide-react';
 
-// Import calendar data
-import calendarData from '@/assets/calendar.json';
-
 interface CalendarEvent {
-  id: number;
+  _id: string; // MongoDB ID
   title: string;
   date: string;
   type: 'event' | 'deadline' | 'workshop';
@@ -30,19 +27,31 @@ const Calendar = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Load calendar data on component mount
   useEffect(() => {
-    const loadCalendarData = () => {
+    const fetchCalendarEvents = async () => {
       try {
-        setEvents(calendarData as CalendarEvent[]);
+        setLoading(true);
+        const response = await fetch('https://3001-firebase-sntc-web-1753578749472.cluster-zkm2jrwbnbd4awuedc2alqxrpk.cloudworkstations.dev/api/calendar',{
+          headers: {
+            'Cookie': 'WorkstationJwtPartitioned=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2Nsb3VkLmdvb2dsZS5jb20vd29ya3N0YXRpb25zIiwiYXVkIjoiZmlyZWJhc2Utc250Yy13ZWItMTc1MzU3ODc0OTQ3Mi5jbHVzdGVyLXprbTJqcndibmJkNGF3dWVkYzJhbHF4cnBrLmNsb3Vkd29ya3N0YXRpb25zLmRldiIsImlhdCI6MTc1MzU4MTI2NSwiZXhwIjoxNzUzNjY3NjY1fQ.JjBIvt92prQQwud5hdez7nJCNM-T7xuFPYGukKPuVzfOIVOjqEHHiSh5EZ39s3pkjptUoi4FV-z3qK-Q8XVCb9qc3iPacz43t7h3xCvBAfBoyfP9gexSNbKY41Fga1w7dNTlWoa0bptQ2b9SoZv03ih1iavJDOqd0e7w9bslPihfBgsD96zFhILb-7EEEIWVN63bRrsd0V9i4cMcFLa65JaJ-F5iYAGVtS6lSlTw_vrZ7APu-p4PbRu0q1c2TGLJavjI89iVdhE6IIYcirZ36BtkNvx_xE-xgNPplmBVSD4BHh6DyoFsquTAzePspRZ1qB7z7Su72KAYCRc2f_9Lzw' // full token here
+          },
+          credentials: 'include'}
+
+
+        );
+        if (!response.ok) {
+          throw new Error('Failed to fetch calendar data');
+        }
+        const data: CalendarEvent[] = await response.json();
+        setEvents(data);
         setLoading(false);
-      } catch (err) {
-        setError('Failed to load calendar data');
+      } catch (err: any) {
+        setError(err.message);
         setLoading(false);
       }
     };
 
-    loadCalendarData();
+    fetchCalendarEvents();
   }, []);
 
   const getDaysInMonth = (date: Date) => {
@@ -52,7 +61,7 @@ const Calendar = () => {
     const lastDay = new Date(year, month + 1, 0);
     const daysInMonth = lastDay.getDate();
     const startingDay = firstDay.getDay();
-    
+
     return { daysInMonth, startingDay };
   };
 
@@ -254,7 +263,7 @@ const Calendar = () => {
                       <div className="space-y-1">
                         {dayEvents.slice(0, 2).map(event => (
                           <div
-                            key={event.id}
+                            key={event._id} // Use MongoDB _id
                             className={`w-full h-2 rounded-full ${getEventTypeColor(event.type)}`}
                             title={event.title}
                           />
@@ -287,7 +296,7 @@ const Calendar = () => {
                 </h3>
                 <div className="space-y-3">
                   {getEventsForDate(selectedDate).map(event => (
-                    <div key={event.id} className="p-3 rounded-lg bg-muted/20 border border-border">
+                    <div key={event._id} className="p-3 rounded-lg bg-muted/20 border border-border">
                       <div className="flex items-start justify-between mb-2">
                         <h4 className="font-medium text-foreground">{event.title}</h4>
                         <Badge className={`text-xs ${getEventTypeColor(event.type)}`}>
@@ -327,7 +336,7 @@ const Calendar = () => {
               <div className="space-y-3">
                 {upcomingEvents.length > 0 ? (
                   upcomingEvents.map(event => (
-                    <div key={event.id} className="p-3 rounded-lg bg-muted/20 border border-border">
+                    <div key={event._id} className="p-3 rounded-lg bg-muted/20 border border-border">
                       <div className="flex items-start justify-between mb-2">
                         <h4 className="font-medium text-foreground text-sm">{event.title}</h4>
                         <Badge className={`text-xs ${getEventTypeColor(event.type)}`}>

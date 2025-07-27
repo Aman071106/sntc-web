@@ -6,7 +6,7 @@ const { MongoClient, ObjectId } = require('mongodb');
 
 dotenv.config();
 const app = express();
-app.use(cors({  origin: 'http://localhost:8080'}));
+app.use(cors({  origin: '*'}));
 app.use(express.json());
 // Express.js example
 app.use((req, res, next) => {

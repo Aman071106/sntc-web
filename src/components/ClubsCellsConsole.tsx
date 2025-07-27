@@ -2,32 +2,30 @@ import { useState, useEffect, useRef } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { 
-  ExternalLink, 
-  Users, 
-  Calendar, 
-  Mail, 
-  X, 
-  Code, 
-  Satellite, 
-  Bot, 
-  Settings, 
-  Dna, 
-  Car, 
-  Building, 
-  Shield, 
-  Gamepad2, 
-  TrendingUp, 
+import {
+  ExternalLink,
+  Users,
+  Calendar,
+  Mail,
+  X,
+  Code,
+  Satellite,
+  Bot,
+  Settings,
+  Dna,
+  Car,
+  Building,
+  Shield,
+  Gamepad2,
+  TrendingUp,
   Brain,
   Zap,
   Monitor,
   Terminal
 } from 'lucide-react';
-import clubsDataJson from '@/assets/clubs_data.json';
-import cellsDataJson from '@/assets/cells_data.json';
 
 interface ClubCell {
-  id: number;
+  _id: string; // MongoDB ID
   name: string;
   shortName: string;
   fullName: string;
@@ -42,6 +40,7 @@ interface ClubCell {
   events: number;
   type?: 'club' | 'cell';
 }
+
 const clubCellImages = import.meta.glob('@/assets/club_cells_images/*', { eager: true, import: 'default' });
 
 const getImage = (fileName: string) => {
@@ -49,9 +48,6 @@ const getImage = (fileName: string) => {
   return match ? match[1] : '';
 };
 
-const clubsData: ClubCell[] = (clubsDataJson as ClubCell[]).map(club => ({ ...club, type: 'club' }));
-const cellsData: ClubCell[] = (cellsDataJson as ClubCell[]).map(cell => ({ ...cell, type: 'cell' }));
-const allData: ClubCell[] = [...clubsData, ...cellsData];
 const getIconComponent = (iconName: string) => {
   const iconMap: { [key: string]: React.ReactNode } = {
     code: <Code className="w-6 h-6" />,
@@ -70,14 +66,41 @@ const getIconComponent = (iconName: string) => {
 };
 
 const ClubsCellsConsole = () => {
+  const [allData, setAllData] = useState<ClubCell[]>([]);
   const [selectedItem, setSelectedItem] = useState<ClubCell | null>(null);
   const [rotationAngle, setRotationAngle] = useState(0);
   const [isAutoRotating, setIsAutoRotating] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [clubsResponse, cellsResponse] = await Promise.all([
+          fetch('https://3001-firebase-sntc-web-1753578749472.cluster-zkm2jrwbnbd4awuedc2alqxrpk.cloudworkstations.dev/api/clubs',{
+          headers: {
+            'Cookie': 'WorkstationJwtPartitioned=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2Nsb3VkLmdvb2dsZS5jb20vd29ya3N0YXRpb25zIiwiYXVkIjoiZmlyZWJhc2Utc250Yy13ZWItMTc1MzU3ODc0OTQ3Mi5jbHVzdGVyLXprbTJqcndibmJkNGF3dWVkYzJhbHF4cnBrLmNsb3Vkd29ya3N0YXRpb25zLmRldiIsImlhdCI6MTc1MzU4MTI2NSwiZXhwIjoxNzUzNjY3NjY1fQ.JjBIvt92prQQwud5hdez7nJCNM-T7xuFPYGukKPuVzfOIVOjqEHHiSh5EZ39s3pkjptUoi4FV-z3qK-Q8XVCb9qc3iPacz43t7h3xCvBAfBoyfP9gexSNbKY41Fga1w7dNTlWoa0bptQ2b9SoZv03ih1iavJDOqd0e7w9bslPihfBgsD96zFhILb-7EEEIWVN63bRrsd0V9i4cMcFLa65JaJ-F5iYAGVtS6lSlTw_vrZ7APu-p4PbRu0q1c2TGLJavjI89iVdhE6IIYcirZ36BtkNvx_xE-xgNPplmBVSD4BHh6DyoFsquTAzePspRZ1qB7z7Su72KAYCRc2f_9Lzw' // full token here
+          },
+          credentials: 'include'}),
+          fetch('https://3001-firebase-sntc-web-1753578749472.cluster-zkm2jrwbnbd4awuedc2alqxrpk.cloudworkstations.dev/api/cells',{
+          headers: {
+            'Cookie': 'WorkstationJwtPartitioned=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2Nsb3VkLmdvb2dsZS5jb20vd29ya3N0YXRpb25zIiwiYXVkIjoiZmlyZWJhc2Utc250Yy13ZWItMTc1MzU3ODc0OTQ3Mi5jbHVzdGVyLXprbTJqcndibmJkNGF3dWVkYzJhbHF4cnBrLmNsb3Vkd29ya3N0YXRpb25zLmRldiIsImlhdCI6MTc1MzU4MTI2NSwiZXhwIjoxNzUzNjY3NjY1fQ.JjBIvt92prQQwud5hdez7nJCNM-T7xuFPYGukKPuVzfOIVOjqEHHiSh5EZ39s3pkjptUoi4FV-z3qK-Q8XVCb9qc3iPacz43t7h3xCvBAfBoyfP9gexSNbKY41Fga1w7dNTlWoa0bptQ2b9SoZv03ih1iavJDOqd0e7w9bslPihfBgsD96zFhILb-7EEEIWVN63bRrsd0V9i4cMcFLa65JaJ-F5iYAGVtS6lSlTw_vrZ7APu-p4PbRu0q1c2TGLJavjI89iVdhE6IIYcirZ36BtkNvx_xE-xgNPplmBVSD4BHh6DyoFsquTAzePspRZ1qB7z7Su72KAYCRc2f_9Lzw' // full token here
+          },
+          credentials: 'include'}),
+        ]);
+        const clubsData: ClubCell[] = await clubsResponse.json();
+        const cellsData: ClubCell[] = await cellsResponse.json();
+        setAllData([...clubsData.map(club => ({...club, type: 'club'})), ...cellsData.map(cell => ({...cell, type: 'cell'}))]);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
     let animationId: number;
-    
+
     if (isAutoRotating) {
       const animate = () => {
         setRotationAngle(prev => (prev + 0.5) % 360);
@@ -140,7 +163,7 @@ const ClubsCellsConsole = () => {
           </div>
 
           {/* Orbiting Items */}
-          <div 
+          <div
             ref={containerRef}
             className="absolute inset-0 z-10"
             onMouseEnter={handleMouseEnter}
@@ -156,7 +179,7 @@ const ClubsCellsConsole = () => {
 
               return (
                 <div
-                  key={item.id}
+                  key={item._id} // Use MongoDB _id
                   className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300"
                   style={{
                     transform: `translate(${x}px, ${y}px) translateZ(${z}px) scale(${scale})`,
@@ -172,8 +195,8 @@ const ClubsCellsConsole = () => {
                   `}>
                     <div className="p-3 text-center">
                       <div className="w-8 h-8 mx-auto mb-1">
-                        <img 
-                          src={getImage(item.image)} 
+                        <img
+                          src={getImage(item.image)}
                           alt={item.name}
                           className="w-full h-full object-cover rounded"
                         />
@@ -193,12 +216,12 @@ const ClubsCellsConsole = () => {
 
           {/* Connection Lines */}
           <svg className="absolute inset-0 w-full h-full pointer-events-none z-5">
-            {clubsData.map((_, index) => {
-              const angle = (index * (360 / clubsData.length) + rotationAngle) * (Math.PI / 180);
+            {allData.map((_, index) => {
+              const angle = (index * (360 / allData.length) + rotationAngle) * (Math.PI / 180);
               const radius = 200;
               const x = Math.cos(angle) * radius + 50;
               const y = Math.sin(angle) * radius + 50;
-              
+
               return (
                 <line
                   key={index}
@@ -252,7 +275,7 @@ const ClubsCellsConsole = () => {
 
       {/* IDE Style Details Modal */}
       <Dialog open={!!selectedItem} onOpenChange={() => setSelectedItem(null)}>
-      <DialogContent 
+      <DialogContent
   className="w-[98vw] max-w-none bg-card border-2 border-primary/30 p-0 z-50 h-auto max-h-[95vh] mt-1 sm:mt-3"
 >      {selectedItem && (
         <div className="p-3 sm:p-6 overflow-y-auto">
@@ -313,7 +336,7 @@ const ClubsCellsConsole = () => {
                         </div>
                         <div className="text-3xl font-bold text-accent">{selectedItem.events}</div>
                       </div>
-                      
+
                     </div>
                   </div>
 
@@ -321,7 +344,7 @@ const ClubsCellsConsole = () => {
                   <div>
                     <h3 className="text-sm font-mono text-muted-foreground mb-3">// QUICK ACTIONS</h3>
                     <div className="flex gap-4">
-                      <Button 
+                      <Button
                         size="lg"
                         className="bg-primary text-primary-foreground hover:opacity-90 px-8"
                         onClick={() => window.open(selectedItem.website, '_blank')}
@@ -329,9 +352,9 @@ const ClubsCellsConsole = () => {
                         <ExternalLink className="w-5 h-5 mr-2" />
                         Visit Website
                       </Button>
-                      <Button 
+                      <Button
                         size="lg"
-                        variant="outline" 
+                        variant="outline"
                         className="border-accent/30 text-accent hover:bg-accent hover:text-accent-foreground px-8"
                         onClick={() => window.open(`mailto:${selectedItem.email}`, '_blank')}
                       >
@@ -350,4 +373,4 @@ const ClubsCellsConsole = () => {
   );
 };
 
-export default ClubsCellsConsole; 
+export default ClubsCellsConsole;

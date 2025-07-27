@@ -1,13 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ExternalLink, Users, DollarSign, Mail, ArrowRight, Rocket, Car, Bot, Satellite, Terminal } from 'lucide-react';
-import projectsData from '@/assets/projects_data.json';
 const projectImages = import.meta.glob('@/assets/project_images/*', { eager: true, import: 'default' });
 
 interface Project {
-  id: number;
+  _id: string; // MongoDB ID
   title: string;
   description: string;
   teamLead: string;
@@ -34,14 +33,32 @@ const getImage = (fileName: string) => {
 };
 
 const ProjectsShowcase = () => {
+  const [projects, setProjects] = useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  // Load projects with resolved images + icons
-  const projects = (projectsData as Project[]).map(p => ({
-    ...p,
-    image: getImage(p.image),
-    icon: iconMap[p.icon] || <Rocket className="w-6 h-6" />
-  }));
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch('https://3001-firebase-sntc-web-1753578749472.cluster-zkm2jrwbnbd4awuedc2alqxrpk.cloudworkstations.dev/api/projects',{
+          headers: {
+            'Cookie': 'WorkstationJwtPartitioned=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2Nsb3VkLmdvb2dsZS5jb20vd29ya3N0YXRpb25zIiwiYXVkIjoiZmlyZWJhc2Utc250Yy13ZWItMTc1MzU3ODc0OTQ3Mi5jbHVzdGVyLXprbTJqcndibmJkNGF3dWVkYzJhbHF4cnBrLmNsb3Vkd29ya3N0YXRpb25zLmRldiIsImlhdCI6MTc1MzU4MTI2NSwiZXhwIjoxNzUzNjY3NjY1fQ.JjBIvt92prQQwud5hdez7nJCNM-T7xuFPYGukKPuVzfOIVOjqEHHiSh5EZ39s3pkjptUoi4FV-z3qK-Q8XVCb9qc3iPacz43t7h3xCvBAfBoyfP9gexSNbKY41Fga1w7dNTlWoa0bptQ2b9SoZv03ih1iavJDOqd0e7w9bslPihfBgsD96zFhILb-7EEEIWVN63bRrsd0V9i4cMcFLa65JaJ-F5iYAGVtS6lSlTw_vrZ7APu-p4PbRu0q1c2TGLJavjI89iVdhE6IIYcirZ36BtkNvx_xE-xgNPplmBVSD4BHh6DyoFsquTAzePspRZ1qB7z7Su72KAYCRc2f_9Lzw' // full token here
+          },
+          credentials: 'include'});
+        const data: Project[] = await response.json();
+        // Load images and map icons after fetching data
+        const projectsWithAssets = data.map(p => ({
+          ...p,
+          image: getImage(p.image),
+          icon: iconMap[p.icon] || <Rocket className="w-6 h-6" />
+        }));
+        setProjects(projectsWithAssets);
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+      }
+    };
+
+    fetchProjects();
+  }, []);
 
   return (
     <section id="projects" className="py-20 px-4 pb-32 relative overflow-hidden">
@@ -63,7 +80,7 @@ const ProjectsShowcase = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <div key={project.id} className="transform transition-all duration-500" style={{ animationDelay: `${index * 0.1}s` }}>
+            <div key={project._id} className="transform transition-all duration-500" style={{ animationDelay: `${index * 0.1}s` }}>
               <Card className="group relative overflow-hidden bg-card/50 backdrop-blur-sm border-2 border-primary/20 hover:border-primary/50 transition-all duration-500 hover:scale-105 cursor-pointer h-full">
                 <div className="relative h-48 overflow-hidden">
                   <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />

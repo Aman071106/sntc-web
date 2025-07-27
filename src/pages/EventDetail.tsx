@@ -2,21 +2,20 @@ import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { 
-  Calendar, 
-  Clock, 
-  MapPin, 
-  Users, 
-  Trophy, 
-  ArrowLeft, 
+import {
+  Calendar,
+  Clock,
+  MapPin,
+  Users,
+  Trophy,
+  ArrowLeft,
   ExternalLink,
   CheckCircle,
   Star
 } from 'lucide-react';
 
-import eventsData from '@/assets/events_data.json';
-
 interface EventDetail {
+  _id: string; // MongoDB ID
   id: number;
   name: string;
   fullName: string;
@@ -53,19 +52,28 @@ const EventDetail = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    try {
-      const eventId = parseInt(id);
-      const foundEvent = eventsData.find((e: any) => e.id === eventId);
-      if (!foundEvent) {
-        setError('Event not found');
+    const fetchEvent = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`https://3001-firebase-sntc-web-1753578749472.cluster-zkm2jrwbnbd4awuedc2alqxrpk.cloudworkstations.dev/api/events/${id}`,{
+          headers: {
+            'Cookie': 'WorkstationJwtPartitioned=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2Nsb3VkLmdvb2dsZS5jb20vd29ya3N0YXRpb25zIiwiYXVkIjoiZmlyZWJhc2Utc250Yy13ZWItMTc1MzU3ODc0OTQ3Mi5jbHVzdGVyLXprbTJqcndibmJkNGF3dWVkYzJhbHF4cnBrLmNsb3Vkd29ya3N0YXRpb25zLmRldiIsImlhdCI6MTc1MzU4MTI2NSwiZXhwIjoxNzUzNjY3NjY1fQ.JjBIvt92prQQwud5hdez7nJCNM-T7xuFPYGukKPuVzfOIVOjqEHHiSh5EZ39s3pkjptUoi4FV-z3qK-Q8XVCb9qc3iPacz43t7h3xCvBAfBoyfP9gexSNbKY41Fga1w7dNTlWoa0bptQ2b9SoZv03ih1iavJDOqd0e7w9bslPihfBgsD96zFhILb-7EEEIWVN63bRrsd0V9i4cMcFLa65JaJ-F5iYAGVtS6lSlTw_vrZ7APu-p4PbRu0q1c2TGLJavjI89iVdhE6IIYcirZ36BtkNvx_xE-xgNPplmBVSD4BHh6DyoFsquTAzePspRZ1qB7z7Su72KAYCRc2f_9Lzw' // full token here
+          },
+          credentials: 'include'});
+        if (!response.ok) {
+          throw new Error('Event not found');
+        }
+        const data: EventDetail = await response.json();
+        setEvent({ ...data, image: getImage(data.image) });
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
         setLoading(false);
-        return;
       }
-      setEvent({ ...foundEvent, image: getImage(foundEvent.image) } as EventDetail);
-    } catch (err) {
-      setError('Failed to load event data');
-    } finally {
-      setLoading(false);
+    };
+
+    if (id) {
+      fetchEvent();
     }
   }, [id]);
 
@@ -101,8 +109,8 @@ const EventDetail = () => {
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <div className="relative h-64 sm:h-96 overflow-hidden">
-        <img 
-          src={event.image} 
+        <img
+          src={event.image}
           alt={event.name}
           className="w-full h-full object-cover"
         />
@@ -133,7 +141,7 @@ const EventDetail = () => {
       {/* Content Section */}
       <div className="container mx-auto px-4 py-8 sm:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
-          
+
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6 sm:space-y-8">
             <Card className="p-4 sm:p-8 bg-card/50 backdrop-blur-sm border border-primary/20">
@@ -222,15 +230,15 @@ const EventDetail = () => {
                   <p className="text-xs sm:text-sm text-muted-foreground mb-1">Registration Deadline</p>
                   <p className="text-accent font-medium text-sm sm:text-base">{event.registrationDeadline}</p>
                 </div>
-                <Button 
+                <Button
                   className="w-full bg-accent text-accent-foreground hover:opacity-90"
                   onClick={() => window.open(event.registrationLink, '_blank')}
                 >
                   <ExternalLink className="w-4 h-4 mr-2" />
                   Register Now
                 </Button>
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   className="w-full border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground"
                   onClick={() => window.open(event.calendarLink, '_blank')}
                 >
