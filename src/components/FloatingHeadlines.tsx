@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface Headline {
-  _id: string; // MongoDB ID
+  _id: string;
   text: string;
   type: string;
   priority: string;
@@ -26,17 +26,14 @@ const IntegratedHeadlines = () => {
         console.error('Error fetching headlines:', error);
       }
     };
-
     fetchHeadlines();
   }, []);
 
   useEffect(() => {
     if (isPaused || headlines.length <= 1) return;
-
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % headlines.length);
-    }, 4000);
-
+    }, 5000);
     return () => clearInterval(interval);
   }, [isPaused, headlines.length]);
 
@@ -52,9 +49,7 @@ const IntegratedHeadlines = () => {
     const headline = headlines[currentIndex];
     if (headline.link.startsWith('/')) {
       const element = document.querySelector(headline.link);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
+      if (element) element.scrollIntoView({ behavior: 'smooth' });
     } else {
       window.open(headline.link, '_blank');
     }
@@ -64,73 +59,47 @@ const IntegratedHeadlines = () => {
 
   const currentHeadline = headlines[currentIndex];
 
-  const getPriorityColors = (priority: string) => {
+  const getPriorityStyle = (priority: string) => {
     switch (priority) {
       case 'high':
-        return 'from-red-600 via-orange-500 to-yellow-500';
+        return 'bg-red-600 text-white';
       case 'medium':
-        return 'from-blue-600 via-purple-500 to-pink-500';
+        return 'bg-blue-600 text-white';
       default:
-        return 'from-green-600 via-teal-500 to-cyan-500';
+        return 'bg-green-600 text-white';
     }
   };
 
   return (
-    <div className="w-full bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 border-y border-gray-700/50 relative overflow-hidden">
-      {/* Animated Background Lines */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 w-full h-full">
-          {[...Array(3)].map((_, i) => (
-            <div
-              key={i}
-              className={`absolute h-0.5 w-full bg-gradient-to-r ${getPriorityColors(currentHeadline.priority)} opacity-30 animate-slide-right`}
-              style={{
-                top: `${20 + i * 30}%`,
-                animationDelay: `${i * 0.8}s`,
-                animationDuration: '3s'
-              }}
-            />
-          ))}
-        </div>
-      </div>
+    <div className="w-full bg-gray-900 border-y border-gray-800">
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
+        <div className="flex items-center py-2 gap-4">
+         
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4">
-        <div className="flex items-center py-2">
-          {/* Breaking News Label */}
-          <div className="flex-shrink-0 mr-4">
-            <div className={`flex items-center gap-2 px-3 py-1 bg-gradient-to-r ${getPriorityColors(currentHeadline.priority)} rounded text-white text-sm font-bold`}>
-              {currentHeadline.priority === 'high' && <Zap className="w-3 h-3" />}
-              <span>
-                {currentHeadline.priority === 'high' ? 'BREAKING' :
-                 currentHeadline.priority === 'medium' ? 'NEWS' : 'UPDATE'}
-              </span>
-            </div>
-          </div>
-
-          {/* Scrolling Text Container */}
+          {/* Scrolling Headline */}
           <div
-            className="flex-1 overflow-hidden cursor-pointer group"
+            className="flex-1 overflow-hidden cursor-pointer"
             onClick={handleClick}
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
             <div
-              className={`whitespace-nowrap text-white font-medium text-base transition-transform duration-1000 ease-linear ${
+              className={`whitespace-nowrap text-white text-sm md:text-base font-medium transition-transform duration-700 ${
                 isPaused ? '' : 'animate-scroll-left'
-              } group-hover:text-yellow-300`}
+              }`}
             >
               {currentHeadline.text}
             </div>
           </div>
 
-          {/* Navigation Controls */}
+          {/* Navigation */}
           {headlines.length > 1 && (
-            <div className="flex items-center gap-1 ml-4 flex-shrink-0">
+            <div className="flex items-center gap-2">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={handlePrevious}
-                className="h-7 w-7 p-0 hover:bg-white/10 text-white/70 hover:text-white"
+                className="h-7 w-7 p-0 text-gray-400 hover:text-white hover:bg-gray-800"
               >
                 <ChevronLeft className="w-3 h-3" />
               </Button>
@@ -140,10 +109,10 @@ const IntegratedHeadlines = () => {
                   <button
                     key={index}
                     onClick={() => setCurrentIndex(index)}
-                    className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                    className={`w-1.5 h-1.5 rounded-full transition ${
                       index === currentIndex
                         ? 'bg-yellow-400'
-                        : 'bg-white/30 hover:bg-white/50'
+                        : 'bg-gray-500 hover:bg-gray-400'
                     }`}
                   />
                 ))}
@@ -153,7 +122,7 @@ const IntegratedHeadlines = () => {
                 variant="ghost"
                 size="sm"
                 onClick={handleNext}
-                className="h-7 w-7 p-0 hover:bg-white/10 text-white/70 hover:text-white"
+                className="h-7 w-7 p-0 text-gray-400 hover:text-white hover:bg-gray-800"
               >
                 <ChevronRight className="w-3 h-3" />
               </Button>
@@ -162,39 +131,18 @@ const IntegratedHeadlines = () => {
         </div>
       </div>
 
+      {/* Animations */}
       <style jsx>{`
-        @keyframes slide-right {
-          0% {
-            transform: translateX(-100%);
-            opacity: 0;
-          }
-          10% {
-            opacity: 0.3;
-          }
-          90% {
-            opacity: 0.3;
-          }
-          100% {
-            transform: translateX(100vw);
-            opacity: 0;
-          }
-        }
-
         @keyframes scroll-left {
           0% {
-            transform: translateX(10%);
+            transform: translateX(100%);
           }
           100% {
-            transform: translateX(-10%);
+            transform: translateX(-100%);
           }
         }
-
-        .animate-slide-right {
-          animation: slide-right linear infinite;
-        }
-
         .animate-scroll-left {
-          animation: scroll-left 8s ease-in-out infinite alternate;
+          animation: scroll-left 15s linear infinite;
         }
       `}</style>
     </div>

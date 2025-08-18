@@ -1,0 +1,27 @@
+/* --- HERO-COMPATIBLE ANIMATIONS (shared) --- */
+@keyframes float { 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(-12px) rotate(180deg)} }
+@keyframes reverse-spin { from{transform:translate(-50%,-50%) rotate(0)} to{transform:translate(-50%,-50%) rotate(-360deg)} }
+@keyframes spin-slow { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+@keyframes scan { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
+@keyframes blink { 0%,50%{opacity:1} 51%,100%{opacity:0} }
+@keyframes gradient-shift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+@keyframes fade-in { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+.animate-float{ animation: float 4s ease-in-out infinite; }
+.animate-reverse-spin{ animation: reverse-spin 14s linear infinite; }
+.animate-spin-slow{ animation: spin-slow 22s linear infinite; }
+.animate-scan{ animation: scan 2.4s ease-in-out infinite; }
+.animate-blink{ animation: blink 1.5s infinite; }
+.animate-gradient-shift{ background-size:200% 200%; animation: gradient-shift 3s ease infinite; }
+.animate-fade-in{ animation: fade-in 0.9s ease-out; }
+
+/* utility: glossy neon border */
+.neon-frame{box-shadow:0 0 24px rgba(56,189,248,.25), inset 0 0 8px rgba(139,92,246,.2)}
+/* utility: subtle scanline overlay */
+.scanlines:after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background: linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: 100% 7px; opacity:.2; mix-blend:overlay;
+}
+/* utility: conic shimmer rim */
+.rim-conic{ background: conic-gradient(from 0deg, rgba(59,130,246,.25), rgba(139,92,246,.25), rgba(6,182,212,.25), rgba(59,130,246,.25)); }
