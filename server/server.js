@@ -108,22 +108,6 @@ app.get('/api/events', async (req, res) => {
   }
 });
 
-app.get('/api/events/:id', async (req, res) => {
-  try {
-    const database = client.db('Cluster0');
-    const eventsCollection = database.collection('events');
-    // Assuming 'id' in JSON corresponds to a numerical ID in MongoDB
-    const event = await eventsCollection.findOne({ id: parseInt(req.params.id) });
-    if (event) {
-      res.json(event);
-    } else {
-      res.status(404).json({ message: 'Event not found' });
-    }
-  } catch (error) {
-    console.error('Error fetching event details:', error);
-    res.status(500).json({ message: 'Error fetching event details' });
-  }
-});
 
 app.get('/api/calendar', async (req, res) => {
   try {

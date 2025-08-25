@@ -36,6 +36,7 @@ const ClubsCellsConsole = () => {
   const [isAutoRotating, setIsAutoRotating] = useState(true);
   const [particles, setParticles] = useState<{id:number;x:number;y:number;size:number;opacity:number;speed:number}[]>([]);
   const [mousePos, setMousePos] = useState({x:50,y:50});
+  const [loading, setLoading] = useState(true); // ✅ new
   const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -51,7 +52,11 @@ const ClubsCellsConsole = () => {
           ...clubs.map(c => ({...c, type:'club' as const})),
           ...cells.map(c => ({...c, type:'cell' as const}))
         ]);
-      } catch(e){ console.error(e); }
+      } catch(e){ 
+        console.error(e); 
+      } finally {
+        setLoading(false); // ✅ stop loader
+      }
     };
     init();
   }, []);
@@ -83,7 +88,7 @@ const ClubsCellsConsole = () => {
 
   return (
     <section id="clubs-cells" className="relative min-h-screen py-24 px-4 overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900">
-      {/* Dynamic grid + beams like hero */}
+      {/* Dynamic grid background */}
       <div className="absolute inset-0 opacity-20">
         <div
           className="w-full h-full"
@@ -104,17 +109,9 @@ const ClubsCellsConsole = () => {
           background: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, rgba(59,130,246,0.18) 0%, transparent 45%)`
         }}
       />
-      {/* energy scan lines */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(3)].map((_,i)=>(
-          <div key={i} className="absolute w-full h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60" style={{top:`${22 + i*28}%`}}>
-            <div className="w-full h-full animate-scan" />
-          </div>
-        ))}
-      </div>
 
+      {/* Header */}
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-bold">
             <span className="text-blue-400">Network Nodes</span>
@@ -124,103 +121,96 @@ const ClubsCellsConsole = () => {
 
         {/* Console */}
         <div className="relative flex justify-center items-center h-[480px] mb-20">
-          {/* central portal */}
-          <div className="relative w-36 h-36 rounded-full border-4 border-cyan-400/50 shadow-2xl shadow-cyan-500/30 bg-slate-900/60 backdrop-blur-md neon-frame">
-            <div className="absolute inset-[-18px] rounded-full border border-purple-400/30 animate-spin-slow" />
-            <div className="absolute inset-[-36px] rounded-full border border-blue-400/20 animate-reverse-spin" />
-            <div className="absolute inset-0 rounded-full rim-conic opacity-20 animate-spin-slow" />
-            <div className="absolute inset-0 flex items-center justify-center text-center">
-              <div>
-                <Monitor className="w-8 h-8 text-cyan-300 mx-auto mb-2" />
-                <div className="text-xs font-mono text-cyan-300">SNTC</div>
-                <div className="text-xs font-mono text-slate-400">HUB</div>
-              </div>
+          {loading ? (
+            <div className="flex flex-col items-center justify-center h-full">
+              <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-cyan-400"></div>
+              <p className="text-slate-400 mt-4 font-mono">Loading network data...</p>
             </div>
-            <div className="absolute top-1/2 left-1/2 w-3 h-3 -translate-x-1/2 -translate-y-1/2 bg-white rounded-full shadow-lg shadow-white/50 animate-blink" />
-          </div>
-
-          {/* orbiting items */}
-          <div
-            className="absolute inset-0"
-            onMouseEnter={()=>setIsAutoRotating(false)}
-            onMouseLeave={()=>setIsAutoRotating(true)}
-          >
-            {allData.map((item, index) => {
-              const angle = (index * (360 / Math.max(1, allData.length)) + rotationAngle) * (Math.PI/180);
-              const x = Math.cos(angle) * radius;
-              const y = Math.sin(angle) * radius;
-              const z = Math.sin(angle*2) * 50;
-              const scale = 1 + Math.sin(angle)*0.08;
-
-              return (
-                <div
-                  key={item._id}
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-transform duration-300"
-                  style={{ transform:`translate(${x}px, ${y}px) translateZ(${z}px) scale(${scale})`, zIndex: Math.round(z+100) }}
-                >
-                  <Card
-                    onClick={()=>setSelectedItem(item)}
-                    className="w-24 h-24 cursor-pointer bg-slate-900/60 backdrop-blur-sm border-2 border-cyan-400/30 hover:border-cyan-300/80 hover:shadow-cyan-500/30 hover:shadow-2xl rounded-xl neon-frame scanlines transition-all duration-300"
-                  >
-                    <div className="p-3 text-center">
-                      <div className="w-9 h-9 mx-auto mb-1 rounded overflow-hidden">
-                        <img src={getImage(item.image)} alt={item.name} className="w-full h-full object-cover" />
-                      </div>
-                      <div className="text-[11px] font-mono text-slate-100 truncate">{item.shortName}</div>
-                      <div className="text-[10px] font-mono text-slate-400">{item.type?.toUpperCase()}</div>
-                    </div>
-                  </Card>
+          ) : (
+            <>
+              {/* central portal */}
+              <div className="relative w-36 h-36 rounded-full border-4 border-cyan-400/50 shadow-2xl shadow-cyan-500/30 bg-slate-900/60 backdrop-blur-md neon-frame">
+                <div className="absolute inset-[-18px] rounded-full border border-purple-400/30 animate-spin-slow" />
+                <div className="absolute inset-[-36px] rounded-full border border-blue-400/20 animate-reverse-spin" />
+                <div className="absolute inset-0 rounded-full rim-conic opacity-20 animate-spin-slow" />
+                <div className="absolute inset-0 flex items-center justify-center text-center">
+                  <div>
+                    <Monitor className="w-8 h-8 text-cyan-300 mx-auto mb-2" />
+                    <div className="text-xs font-mono text-cyan-300">SNTC</div>
+                    <div className="text-xs font-mono text-slate-400">HUB</div>
+                  </div>
                 </div>
-              );
-            })}
-          </div>
+                <div className="absolute top-1/2 left-1/2 w-3 h-3 -translate-x-1/2 -translate-y-1/2 bg-white rounded-full shadow-lg shadow-white/50 animate-blink" />
+              </div>
 
-          {/* connection lines with gradient */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none">
-            <defs>
-              <linearGradient id="consoleLine" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.8" />
-                <stop offset="50%" stopColor="#6366f1" stopOpacity="0.4" />
-                <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.8" />
-              </linearGradient>
-              <filter id="glow">
-                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-              </filter>
-            </defs>
-            {allData.map((_, index) => {
-              const angle = (index * (360 / Math.max(1, allData.length)) + rotationAngle) * (Math.PI/180);
-              const x = Math.cos(angle) * radius;
-              const y = Math.sin(angle) * radius;
-              return (
-                <line key={index}
-                  x1="50%" y1="50%"
-                  x2={`calc(50% + ${x}px)`} y2={`calc(50% + ${y}px)`}
-                  stroke="url(#consoleLine)" strokeWidth="1" filter="url(#glow)" className="opacity-70" />
-              );
-            })}
-          </svg>
+              {/* orbiting items */}
+              <div
+                className="absolute inset-0"
+                onMouseEnter={()=>setIsAutoRotating(false)}
+                onMouseLeave={()=>setIsAutoRotating(true)}
+              >
+                {allData.map((item, index) => {
+                  const angle = (index * (360 / Math.max(1, allData.length)) + rotationAngle) * (Math.PI/180);
+                  const x = Math.cos(angle) * radius;
+                  const y = Math.sin(angle) * radius;
+                  const z = Math.sin(angle*2) * 50;
+                  const scale = 1 + Math.sin(angle)*0.08;
+
+                  return (
+                    <div
+                      key={item._id}
+                      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-transform duration-300"
+                      style={{ transform:`translate(${x}px, ${y}px) translateZ(${z}px) scale(${scale})`, zIndex: Math.round(z+100) }}
+                    >
+                      <Card
+                        onClick={()=>setSelectedItem(item)}
+                        className="w-24 h-24 cursor-pointer bg-slate-900/60 backdrop-blur-sm border-2 border-cyan-400/30 hover:border-cyan-300/80 hover:shadow-cyan-500/30 hover:shadow-2xl rounded-xl neon-frame scanlines transition-all duration-300"
+                      >
+                        <div className="p-3 text-center">
+                          <div className="w-9 h-9 mx-auto mb-1 rounded overflow-hidden">
+                            <img src={getImage(item.image)} alt={item.name} className="w-full h-full object-cover" />
+                          </div>
+                          <div className="text-[11px] font-mono text-slate-100 truncate">{item.shortName}</div>
+                          <div className="text-[10px] font-mono text-slate-400">{item.type?.toUpperCase()}</div>
+                        </div>
+                      </Card>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          )}
         </div>
 
-       
-
+        {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-slate-900/60 backdrop-blur-sm border border-cyan-400/20 rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-cyan-300">{allData.filter(i=>i.type==='club').length}</div>
-            <div className="text-sm text-slate-400">Clubs</div>
-          </div>
-          <div className="bg-slate-900/60 backdrop-blur-sm border border-purple-400/20 rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-purple-300">{allData.filter(i=>i.type==='cell').length}</div>
-            <div className="text-sm text-slate-400">Cells</div>
-          </div>
-          <div className="bg-slate-900/60 backdrop-blur-sm border border-blue-400/20 rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-blue-300">{allData.reduce((s,i)=>s+i.memberCount,0)}+</div>
-            <div className="text-sm text-slate-400">Members</div>
-          </div>
-          <div className="bg-slate-900/60 backdrop-blur-sm border border-cyan-400/20 rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-cyan-300">{allData.reduce((s,i)=>s+i.events,0)}+</div>
-            <div className="text-sm text-slate-400">Events</div>
-          </div>
+          {loading ? (
+            [...Array(4)].map((_, i) => (
+              <div key={i} className="bg-slate-900/60 backdrop-blur-sm border border-slate-700 rounded-lg p-4 text-center">
+                <div className="h-6 w-12 bg-slate-700 animate-pulse mx-auto mb-2 rounded"></div>
+                <div className="h-4 w-16 bg-slate-700 animate-pulse mx-auto rounded"></div>
+              </div>
+            ))
+          ) : (
+            <>
+              <div className="bg-slate-900/60 backdrop-blur-sm border border-cyan-400/20 rounded-lg p-4 text-center">
+                <div className="text-2xl font-bold text-cyan-300">{allData.filter(i=>i.type==='club').length}</div>
+                <div className="text-sm text-slate-400">Clubs</div>
+              </div>
+              <div className="bg-slate-900/60 backdrop-blur-sm border border-purple-400/20 rounded-lg p-4 text-center">
+                <div className="text-2xl font-bold text-purple-300">{allData.filter(i=>i.type==='cell').length}</div>
+                <div className="text-sm text-slate-400">Cells</div>
+              </div>
+              <div className="bg-slate-900/60 backdrop-blur-sm border border-blue-400/20 rounded-lg p-4 text-center">
+                <div className="text-2xl font-bold text-blue-300">{allData.reduce((s,i)=>s+i.memberCount,0)}+</div>
+                <div className="text-sm text-slate-400">Members</div>
+              </div>
+              <div className="bg-slate-900/60 backdrop-blur-sm border border-cyan-400/20 rounded-lg p-4 text-center">
+                <div className="text-2xl font-bold text-cyan-300">{allData.reduce((s,i)=>s+i.events,0)}+</div>
+                <div className="text-sm text-slate-400">Events</div>
+              </div>
+            </>
+          )}
         </div>
       </div>
 

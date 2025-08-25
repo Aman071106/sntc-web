@@ -205,13 +205,13 @@ const EventsShowcase = () => {
         }`}>
           <div className="relative inline-block mb-6">
             <h2 className="text-4xl md:text-6xl font-bold text-blue-500">
-              Upcoming Events
+              Major Events
             </h2>
             {/* Floating tech icons around title */}
              </div>
           
           <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-            Stay updated with the latest 
+            Events hosted by SNTC are
             <span className="text-blue-400 font-semibold"> tech events</span>, 
             <span className="text-blue-400 font-semibold"> workshops</span>, and 
             <span className="text-blue-400 font-semibold"> competitions</span>
@@ -309,15 +309,7 @@ const EventsShowcase = () => {
                     </div>
                   </div>
 
-                  {/* Enhanced Button */}
-                  <Button
-                    className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300"
-                    onClick={() => handleViewMore(event)}
-                  >
-                    <span className="relative z-10">View More</span>
-                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
-                  </Button>
+                  
                 </div>
               </Card>
             </div>

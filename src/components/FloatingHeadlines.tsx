@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Zap } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface Headline {
@@ -59,6 +59,8 @@ const IntegratedHeadlines = () => {
 
   const currentHeadline = headlines[currentIndex];
 
+  // Note: This function is defined but not used in the provided JSX.
+  // You might want to use it for the priority indicator.
   const getPriorityStyle = (priority: string) => {
     switch (priority) {
       case 'high':
@@ -74,8 +76,6 @@ const IntegratedHeadlines = () => {
     <div className="w-full bg-gray-900 border-y border-gray-800">
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         <div className="flex items-center py-2 gap-4">
-         
-
           {/* Scrolling Headline */}
           <div
             className="flex-1 overflow-hidden cursor-pointer"
@@ -84,9 +84,8 @@ const IntegratedHeadlines = () => {
             onMouseLeave={() => setIsPaused(false)}
           >
             <div
-              className={`whitespace-nowrap text-white text-sm md:text-base font-medium transition-transform duration-700 ${
-                isPaused ? '' : 'animate-scroll-left'
-              }`}
+              className="whitespace-nowrap text-white text-sm md:text-base font-medium animate-scroll-left"
+              style={{ animationPlayState: isPaused ? 'paused' : 'running' }}
             >
               {currentHeadline.text}
             </div>
@@ -131,7 +130,7 @@ const IntegratedHeadlines = () => {
         </div>
       </div>
 
-      {/* Animations */}
+      {/* Animations (No changes needed here) */}
       <style jsx>{`
         @keyframes scroll-left {
           0% {

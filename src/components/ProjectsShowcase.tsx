@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Users, Mail, ArrowRight, Rocket, Car, Bot, Satellite, Terminal, Zap, Shield, Globe } from 'lucide-react';
+import { Users, Mail, ArrowRight, Rocket, Car, Bot, Satellite, Terminal, Zap, Shield, Globe, Loader2 } from 'lucide-react';
 
 const projectImages = import.meta.glob('@/assets/project_images/*', { eager: true, import: 'default' });
 
@@ -42,10 +42,12 @@ const ProjectsShowcase = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
+        setLoading(true);
         const response = await fetch(`${BASE_URL}/api/projects`);
         const data: Project[] = await response.json();
 
@@ -59,6 +61,8 @@ const ProjectsShowcase = () => {
         setTimeout(() => setIsVisible(true), 400);
       } catch (error) {
         console.error('Error fetching projects:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -81,75 +85,81 @@ const ProjectsShowcase = () => {
           </p>
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <div
-              key={project._id}
-              className={`transform transition-all duration-700 ${
-                isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
-              }`}
-              style={{ transitionDelay: `${(index * 0.15) + 0.5}s` }}
-            >
-              <Card className="relative overflow-hidden bg-slate-900/80 backdrop-blur-sm border-2 border-cyan-500/30 hover:border-cyan-400/60 hover:scale-105 transition-all duration-500 cursor-pointer h-full rounded-2xl">
-                
-                {/* Image */}
-                <div className="relative h-48 overflow-hidden rounded-t-2xl">
-                  <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent" />
+        {/* Loader */}
+        {loading ? (
+          <div className="flex justify-center items-center py-20">
+            <Loader2 className="w-12 h-12 text-cyan-400 animate-spin" />
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projects.map((project, index) => (
+              <div
+                key={project._id}
+                className={`transform transition-all duration-700 ${
+                  isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
+                }`}
+                style={{ transitionDelay: `${(index * 0.15) + 0.5}s` }}
+              >
+                <Card className="relative overflow-hidden bg-slate-900/80 backdrop-blur-sm border-2 border-cyan-500/30 hover:border-cyan-400/60 hover:scale-105 transition-all duration-500 cursor-pointer h-full rounded-2xl">
                   
-                  {/* Icon */}
-                  <div className="absolute top-4 left-4 bg-cyan-500/20 border border-cyan-400/40 rounded-lg p-2">
-                    {project.icon}
-                  </div>
-                  
-                  {/* Category */}
-                  <div className="absolute top-4 right-4 bg-slate-800/80 border border-purple-400/40 rounded-lg px-3 py-1">
-                    <span className="text-xs font-mono text-purple-400 tracking-wider">{project.category}</span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-slate-100 mb-3 group-hover:text-cyan-400 transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-3">
-                    {project.description}
-                  </p>
-
-                  {/* Team */}
-                  <div className="flex justify-between items-center mb-4 text-xs text-slate-500">
-                    <div className="flex items-center gap-2">
-                      <Users className="w-3 h-3" />
-                      <span className="font-mono">{project.members.length + (project.teamCoLead ? 2 : 1)} MEMBERS</span>
+                  {/* Image */}
+                  <div className="relative h-48 overflow-hidden rounded-t-2xl">
+                    <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent" />
+                    
+                    {/* Icon */}
+                    <div className="absolute top-4 left-4 bg-cyan-500/20 border border-cyan-400/40 rounded-lg p-2">
+                      {project.icon}
+                    </div>
+                    
+                    {/* Category */}
+                    <div className="absolute top-4 right-4 bg-slate-800/80 border border-purple-400/40 rounded-lg px-3 py-1">
+                      <span className="text-xs font-mono text-purple-400 tracking-wider">{project.category}</span>
                     </div>
                   </div>
 
-                  {/* Buttons */}
-                  <div className="flex gap-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="flex-1 border-2 border-cyan-500/40 text-cyan-400 hover:bg-cyan-500/20"
-                      onClick={() => setSelectedProject(project)}
-                    >
-                      <Terminal className="w-3 h-3 mr-2" /> ACCESS <ArrowRight className="w-3 h-3 ml-2" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="border-2 border-purple-500/40 text-purple-400 hover:bg-purple-500/20"
-                      onClick={() => window.open(`mailto:${project.email}`, '_blank')}
-                    >
-                      <Mail className="w-3 h-3" />
-                    </Button>
+                  {/* Content */}
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-slate-100 mb-3 group-hover:text-cyan-400 transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-3">
+                      {project.description}
+                    </p>
+
+                    {/* Team */}
+                    <div className="flex justify-between items-center mb-4 text-xs text-slate-500">
+                      <div className="flex items-center gap-2">
+                        <Users className="w-3 h-3" />
+                        <span className="font-mono">{project.members.length + (project.teamCoLead ? 2 : 1)} MEMBERS</span>
+                      </div>
+                    </div>
+
+                    {/* Buttons */}
+                    <div className="flex gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="flex-1 border-2 border-cyan-500/40 text-cyan-400 hover:bg-cyan-500/20"
+                        onClick={() => setSelectedProject(project)}
+                      >
+                        <Terminal className="w-3 h-3 mr-2" /> ACCESS <ArrowRight className="w-3 h-3 ml-2" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="border-2 border-purple-500/40 text-purple-400 hover:bg-purple-500/20"
+                        onClick={() => window.open(`mailto:${project.email}`, '_blank')}
+                      >
+                        <Mail className="w-3 h-3" />
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              </Card>
-            </div>
-          ))}
-        </div>
+                </Card>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Modal */}
@@ -181,4 +191,3 @@ const ProjectsShowcase = () => {
 };
 
 export default ProjectsShowcase;
-

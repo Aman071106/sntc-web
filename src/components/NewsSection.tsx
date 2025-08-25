@@ -7,7 +7,8 @@ import {
   BookOpen,
   Zap,
   Globe,
-  Brain
+  Brain,
+  Cpu // Added for the new Hardware category
 } from 'lucide-react';
 
 const NewsSection = () => {
@@ -18,91 +19,91 @@ const NewsSection = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [particles, setParticles] = useState([]);
 
-  // Mock tech news
-  const mockTechNews = [
+  // Latest tech news data
+  const latestTechNews = [
     {
-      id: '1',
-      title: 'OpenAI Releases GPT-5 with Enhanced Reasoning Capabilities',
-      description: 'The latest iteration of OpenAI\'s language model shows significant improvements in logical reasoning and problem-solving abilities.',
-      publishedAt: '2025-01-15T10:30:00Z',
-      author: 'Tech Reporter',
-      source: 'TechCrunch',
+      id: '5',
+      title: 'Nexus OS: The First Commercially Available AI Operating System Launched',
+      description: 'Startup "Cognition Corp" has released Nexus OS, an operating system that uses a core of autonomous AI agents to manage system resources, predict user needs, and automate complex workflows.',
+      publishedAt: '2025-08-22T11:00:00Z',
+      author: 'AI Insider',
+      source: 'The Verge',
       type: 'tech',
       category: 'AI'
     },
     {
-      id: '2',
-      title: 'Quantum Computing Breakthrough Achieved by Google',
-      description: 'Google researchers have achieved quantum supremacy with their latest quantum processor, solving problems impossible for classical computers.',
-      publishedAt: '2025-01-14T15:45:00Z',
-      author: 'Science Writer',
-      source: 'Nature',
-      type: 'tech',
-      category: 'Quantum'
-    },
-    {
-      id: '3',
-      title: 'Tesla Unveils Revolutionary Battery Technology',
-      description: 'Tesla\'s new battery design promises 50% more range and faster charging times, potentially revolutionizing electric vehicles.',
-      publishedAt: '2025-01-13T09:20:00Z',
-      author: 'Auto Journalist',
-      source: 'Wired',
+      id: '6',
+      title: 'Helion Announces Net Energy Gain in Latest Fusion Reactor Test',
+      description: 'Helion\'s new "Polaris" prototype has successfully achieved a net energy gain for a sustained period, a monumental step towards clean, limitless energy.',
+      publishedAt: '2025-08-20T18:25:00Z',
+      author: 'Energy Today',
+      source: 'Bloomberg',
       type: 'tech',
       category: 'Energy'
     },
     {
-      id: '4',
-      title: 'Neuralink Successfully Restores Vision to Blind Patients',
-      description: 'Breakthrough brain-computer interface technology enables direct neural stimulation to restore sight.',
-      publishedAt: '2025-01-12T14:15:00Z',
-      author: 'BioTech News',
-      source: 'MIT Review',
+      id: '7',
+      title: 'Apple Vision Pro 2 Leaks Reveal Lighter Design & Haptic Feedback',
+      description: 'New schematics suggest the next generation of Apple\'s spatial computer will be 30% lighter and incorporate advanced haptic feedback directly into the headband and frame.',
+      publishedAt: '2025-08-19T09:05:00Z',
+      author: 'Tech Leaks',
+      source: '9to5Mac',
+      type: 'tech',
+      category: 'Hardware'
+    },
+    {
+      id: '8',
+      title: 'CRISPR-based Therapy Cures Genetic Hearing Loss in First Human Trial',
+      description: 'Scientists have successfully used a novel CRISPR-based gene therapy to restore hearing in children born with a common form of genetic deafness, marking a new era for genetic medicine.',
+      publishedAt: '2025-08-18T14:45:00Z',
+      author: 'Medical Xpress',
+      source: 'Science Daily',
       type: 'tech',
       category: 'BioTech'
     }
   ];
 
-  // Mock research papers
-  const mockResearchPapers = [
+  // Latest research papers data
+  const latestResearchPapers = [
     {
-      id: '1',
-      title: 'Attention Is All You Need: A Novel Neural Architecture',
-      abstract: 'We propose a novel neural architecture for machine translation relying entirely on self-attention mechanisms, dispensing with recurrence and convolutions entirely.',
-      authors: ['Ashish Vaswani', 'Noam Shazeer', 'Niki Parmar'],
-      publishedDate: '2025-01-15',
-      pdfUrl: 'https://arxiv.org/pdf/1706.03762.pdf',
-      categories: ['cs.CL', 'cs.LG'],
-      citations: 85420
+      id: '5',
+      title: 'Generative World Models: A Foundation for Autonomous Agents',
+      abstract: 'This paper introduces a scalable framework for training Large Multimodal Models to build comprehensive world models, enabling zero-shot planning and decision-making in complex, dynamic environments.',
+      authors: ['Dr. Evelyn Reed', 'Kenji Tanaka', 'et al.'],
+      publishedDate: '2025-08-15',
+      pdfUrl: 'https://arxiv.org/pdf/2508.12345.pdf',
+      categories: ['cs.AI', 'cs.LG', 'cs.RO'],
+      citations: 1250
     },
     {
-      id: '2',
-      title: 'Deep Learning for Computer Vision: A Comprehensive Survey',
-      abstract: 'This paper provides a comprehensive survey of deep learning techniques applied to computer vision tasks, covering architectures and applications.',
-      authors: ['Alex Krizhevsky', 'Ilya Sutskever', 'Geoffrey Hinton'],
-      publishedDate: '2025-01-14',
-      pdfUrl: 'https://arxiv.org/pdf/1409.0575.pdf',
-      categories: ['cs.CV', 'cs.AI'],
-      citations: 42150
+      id: '6',
+      title: 'Dynamic Sparsity and 1-Bit Quantization for Efficient LLM Inference',
+      abstract: 'We present a novel technique, "Adaptive Binarization," that combines dynamic network pruning with 1-bit quantization, reducing memory and computational costs of LLMs by over 80%.',
+      authors: ['Yann LeCun', 'Li Wei', 'et al.'],
+      publishedDate: '2025-07-28',
+      pdfUrl: 'https://arxiv.org/pdf/2507.09876.pdf',
+      categories: ['cs.LG', 'cs.AR'],
+      citations: 2800
     },
     {
-      id: '3',
-      title: 'Reinforcement Learning in Robotics: From Simulation to Reality',
-      abstract: 'We explore challenges and solutions for transferring RL policies from simulation to real-world robotics applications.',
-      authors: ['Pieter Abbeel', 'Sergey Levine'],
-      publishedDate: '2025-01-13',
-      pdfUrl: 'https://arxiv.org/pdf/1703.00420.pdf',
-      categories: ['cs.RO', 'cs.LG'],
-      citations: 18750
+      id: '7',
+      title: 'Constitutional AI Alignment via Collective Democratic Input',
+      abstract: 'We demonstrate a novel AI alignment method where the model\'s constitution is iteratively refined based on structured feedback from a large, diverse group of human participants.',
+      authors: ['Danielle Belgrave', 'Samuel R. Bowman'],
+      publishedDate: '2025-06-30',
+      pdfUrl: 'https://arxiv.org/pdf/2506.05432.pdf',
+      categories: ['cs.AI', 'cs.CY'],
+      citations: 4500
     },
     {
-      id: '4',
-      title: 'Quantum Machine Learning: Bridging Two Worlds',
-      abstract: 'An exploration of quantum algorithms for machine learning tasks and their potential advantages over classical approaches.',
-      authors: ['John Preskill', 'Seth Lloyd'],
-      publishedDate: '2025-01-11',
-      pdfUrl: 'https://arxiv.org/pdf/quantum-ml.pdf',
-      categories: ['quant-ph', 'cs.LG'],
-      citations: 9340
+      id: '8',
+      title: 'Spatiotemporal Graph Neural Networks for Global Climate Forecasting',
+      abstract: 'Our proposed Spatiotemporal Graph Neural Network (ST-GNN) architecture models the Earth\'s climate as a complex graph, outperforming traditional numerical models in long-range prediction.',
+      authors: ['Yoshua Bengio', 'Maria Schmidt', 'et al.'],
+      publishedDate: '2025-05-19',
+      pdfUrl: 'https://arxiv.org/pdf/2505.01122.pdf',
+      categories: ['cs.LG', 'physics.ao-ph'],
+      citations: 7300
     }
   ];
 
@@ -131,8 +132,8 @@ const NewsSection = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      setTechNews(mockTechNews);
-      setResearchPapers(mockResearchPapers);
+      setTechNews(latestTechNews);
+      setResearchPapers(latestResearchPapers);
       setLoading(false);
     }, 1000);
   }, []);
@@ -149,6 +150,7 @@ const NewsSection = () => {
       case 'AI': return <Brain className="w-3 h-3" />;
       case 'Quantum': return <Zap className="w-3 h-3" />;
       case 'Energy': return <Globe className="w-3 h-3" />;
+      case 'Hardware': return <Cpu className="w-3 h-3" />;
       default: return <Newspaper className="w-3 h-3" />;
     }
   };
@@ -159,6 +161,7 @@ const NewsSection = () => {
       case 'Quantum': return 'from-blue-500 to-cyan-500';
       case 'Energy': return 'from-green-500 to-emerald-500';
       case 'BioTech': return 'from-orange-500 to-red-500';
+      case 'Hardware': return 'from-amber-500 to-yellow-500';
       default: return 'from-slate-500 to-gray-500';
     }
   };
@@ -300,34 +303,40 @@ const NewsSection = () => {
         </div>
 
       {/* Futuristic Tab Navigation */}
-<div className="flex justify-center mb-12">
-  <div className="relative flex bg-slate-900/50 backdrop-blur-sm border border-cyan-500/30 rounded-xl p-1 shadow-2xl shadow-cyan-500/10">
-    {/* Sliding background */}
-    <div 
-      className={`absolute top-1 h-10 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg transition-all duration-300 ${
-        activeTab === 'tech' ? 'left-1 w-32' : 'left-36 w-40'
-      }`}
-      style={{
-        boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)',
-      }}
-    />
-    
-    <button
-      onClick={() => setActiveTab('tech')}
-      className="relative px-6 py-2 text-sm font-medium flex items-center gap-2 rounded-lg transition z-10"
-    >
-      <Newspaper className="w-4 h-4" />
-      <span>Tech News</span>
-    </button>
-    <button
-      onClick={() => setActiveTab('research')}
-      className="relative px-6 py-2 text-sm font-medium flex items-center gap-2 rounded-lg transition z-10"
-    >
-      <BookOpen className="w-4 h-4" />
-      <span>Research Papers</span>
-    </button>
-  </div>
-</div>
+      <div className="flex justify-center mb-12">
+        {/* The container is now a grid with a max-width, making it responsive */}
+        <div className="relative w-full max-w-sm sm:max-w-md grid grid-cols-2 bg-slate-900/50 backdrop-blur-sm border border-cyan-500/30 rounded-xl p-1 shadow-2xl shadow-cyan-500/10">
+          
+          {/* The sliding background uses transform for smooth, responsive positioning */}
+          <div
+            className="absolute top-1 bottom-1 w-1/2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg transition-transform duration-300 ease-in-out"
+            style={{
+              transform: activeTab === 'tech' ? 'translateX(0%)' : 'translateX(100%)',
+              boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)',
+            }}
+          />
+          
+          {/* Buttons are now grid items that fill the space, with centered content */}
+          <button
+            onClick={() => setActiveTab('tech')}
+            className={`relative z-10 py-2 text-sm font-medium flex items-center justify-center gap-2 rounded-lg transition-colors duration-300 ${
+              activeTab === 'tech' ? 'text-white' : 'text-slate-300 hover:text-white'
+            }`}
+          >
+            <Newspaper className="w-4 h-4" />
+            <span className="truncate">Tech News</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('research')}
+            className={`relative z-10 py-2 text-sm font-medium flex items-center justify-center gap-2 rounded-lg transition-colors duration-300 ${
+              activeTab === 'research' ? 'text-white' : 'text-slate-300 hover:text-white'
+            }`}
+          >
+            <BookOpen className="w-4 h-4" />
+            <span className="truncate">Research Papers</span>
+          </button>
+        </div>
+      </div>
 
 
         {/* Tech News Content */}
@@ -371,7 +380,7 @@ const NewsSection = () => {
                     <span className="text-slate-500">•</span>
                     <span className="text-cyan-400">{news.source}</span>
                   </div>
-                  <ExternalLink className="w-4 h-4 text-slate-500 group-hover:text-cyan-400 transition-colors" />
+                  {/* REMOVED: The ExternalLink icon was here */}
                 </div>
 
                 {/* Hover glow effect */}
@@ -435,13 +444,7 @@ const NewsSection = () => {
                     </div>
                   </div>
                   
-                  <button
-                    onClick={() => window.open(paper.pdfUrl, '_blank')}
-                    className="flex items-center gap-2 px-3 py-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 hover:from-purple-500 hover:to-pink-500 border border-purple-500/30 hover:border-transparent text-purple-300 hover:text-white text-xs rounded transition-all duration-200"
-                  >
-                    PDF
-                    <ExternalLink className="w-3 h-3" />
-                  </button>
+                  
                 </div>
 
                 {/* Hover glow effect */}
